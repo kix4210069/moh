@@ -1,0 +1,26 @@
+{{ 'kt-product.css' | asset_url | stylesheet_tag }}
+<div class="kt" data-kt-section>
+  <div class="kt-offerbar">
+    <span>🎁 {{ section.settings.text }}</span>
+    <span class="sep">•</span>
+    {%- if section.settings.tag != blank -%}<span class="tag">{{ section.settings.tag }}</span>{%- endif -%}
+    <span class="cd" data-countdown {% if section.settings.deadline != blank %}data-deadline="{{ section.settings.deadline }}"{% endif %}>
+      {{ section.settings.before }} <span data-h>23</span>:<span data-m>58</span>:<span data-s>54</span>
+    </span>
+  </div>
+</div>
+<script src="{{ 'kt-home.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Barre d'offre",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "text", "label": "Texte", "default": "2 ACHETÉS = 1 OFFERT · Livraison offerte" },
+    { "type": "text", "id": "tag", "label": "Étiquette", "default": "OFFRE" },
+    { "type": "text", "id": "before", "label": "Texte avant le minuteur", "default": "Se termine dans" },
+    { "type": "text", "id": "deadline", "label": "Date de fin (AAAA-MM-JJ). Vide = chaque jour", "info": "Vide = compte à rebours qui se remet à minuit." }
+  ],
+  "presets": [ { "name": "KetShop — Barre d'offre" } ]
+}
+{% endschema %}

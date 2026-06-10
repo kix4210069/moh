@@ -1,0 +1,134 @@
+{{ 'kt-home.css' | asset_url | stylesheet_tag }}
+{{ 'kt-product.css' | asset_url | stylesheet_tag }}
+{%- assign v = product.selected_or_first_available_variant -%}
+<div class="kt" data-kt-section>
+  <div class="kt-product" data-kt-product>
+
+    <!-- Gallery -->
+    <div class="kt-gallery">
+      <div class="kt-gallery__main">
+        {%- if product.featured_image -%}
+          <img id="kt-main-img" src="{{ product.featured_image | image_url: width: 900 }}" alt="{{ product.title | escape }}">
+        {%- endif -%}
+      </div>
+      {%- if product.images.size > 1 -%}
+        <div class="kt-gallery__thumbs">
+          {%- for img in product.images limit: 8 -%}
+            <button type="button" class="kt-thumb {% if forloop.first %}is-active{% endif %}" data-src="{{ img | image_url: width: 900 }}">
+              <img src="{{ img | image_url: width: 160 }}" alt="">
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- Info -->
+    <div class="kt-info">
+      <div class="kt-rating"><span class="stars">★★★★★</span> Noté {{ section.settings.rating }} sur {{ section.settings.reviews_count }} avis vérifiés</div>
+      <h1>{{ product.title }}</h1>
+      <div class="kt-substars">★★</div>
+
+      {%- if section.settings.offer_text != blank -%}
+        <div class="kt-offerbanner">🎁 {{ section.settings.offer_text }}</div>
+      {%- endif -%}
+
+      <div class="kt-price">
+        <span id="kt-price">{{ v.price | money }}</span>
+        {%- if product.compare_at_price > v.price -%}<span class="old">{{ product.compare_at_price | money }}</span>{%- endif -%}
+      </div>
+
+      <div class="kt-trust">
+        <div><span class="ic">👥</span>{{ section.settings.trust1 }}</div>
+        <div><span class="ic">✂️</span>{{ section.settings.trust2 }}</div>
+        <div><span class="ic">🚚</span>{{ section.settings.trust3 }}</div>
+      </div>
+
+      {%- form 'product', product, id: 'kt-form' -%}
+        <input type="hidden" name="id" id="kt-variant-id" value="{{ v.id }}">
+
+        {%- for option in product.options_with_values -%}
+          <div class="kt-field">
+            <label>{{ option.name }}</label>
+            <div class="kt-opts kt-optgroup">
+              {%- for value in option.values -%}
+                <button type="button" class="kt-opt {% if option.selected_value == value %}is-active{% endif %}" data-value="{{ value | escape }}">{{ value }}</button>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endfor -%}
+
+        {%- if section.settings.show_flocage -%}
+          <div class="kt-field"><label>Flocage haut</label><input class="kt-input" type="text" name="properties[Flocage haut]" maxlength="14" placeholder="Ex : votre nom"></div>
+          <div class="kt-field"><label>Numéro</label><input class="kt-input" type="text" name="properties[Numéro]" maxlength="2" placeholder="Ex : 10"></div>
+          <div class="kt-field"><label>Flocage bas</label><input class="kt-input" type="text" name="properties[Flocage bas]" maxlength="20" placeholder="Ex : Ballon d'Or"></div>
+          {%- assign badges = section.settings.badges_options | newline_to_br | split: '<br />' -%}
+          <div class="kt-field"><label>Badges</label>
+            <select class="kt-input" name="properties[Badges]">
+              <option value="">Aucun</option>
+              {%- for b in badges -%}<option value="{{ b | strip | escape }}">{{ b | strip }}</option>{%- endfor -%}
+            </select>
+          </div>
+        {%- endif -%}
+
+        <div class="kt-qtyrow">
+          <div class="kt-qty">
+            <button type="button" data-qty="minus" aria-label="Moins">−</button>
+            <input id="kt-qty" type="number" name="quantity" value="1" min="1" inputmode="numeric">
+            <button type="button" data-qty="plus" aria-label="Plus">+</button>
+          </div>
+          <span style="font-size:.8rem;color:var(--muted)">En stock — expédié sous 24/48h</span>
+        </div>
+
+        <button type="submit" class="kt-addcart" {% unless product.available %}disabled{% endunless %}>{% if product.available %}Ajouter au panier{% else %}Rupture de stock{% endif %}</button>
+        <div class="kt-pay">{{ form | payment_button }}</div>
+      {%- endform -%}
+
+      <div class="kt-paypics">
+        {%- assign pays = section.settings.payments | split: ',' -%}
+        {%- for p in pays -%}<span class="pay">{{ p | strip }}</span>{%- endfor -%}
+      </div>
+
+      <ul class="kt-checks">
+        <li><span class="ok">✓</span> {{ section.settings.check1 }}</li>
+        <li><span class="ok">✓</span> {{ section.settings.check2 }}</li>
+        <li><span class="ok">✓</span> {{ section.settings.check3 }}</li>
+      </ul>
+      {%- if section.settings.hot_text != blank -%}<div class="kt-hot">🔥 {{ section.settings.hot_text }}</div>{%- endif -%}
+
+      <details class="kt-acc"><summary>Spécifications <span class="chev2">▾</span></summary>
+        <div class="kt-acc__body">{{ product.description | default: section.settings.specs_fallback }}</div>
+      </details>
+      <details class="kt-acc"><summary>Matériaux &amp; Entretien <span class="chev2">▾</span></summary>
+        <div class="kt-acc__body">{{ section.settings.materials }}</div>
+      </details>
+    </div>
+  </div>
+</div>
+
+<script>window.ktVariants = {{ product.variants | json }};</script>
+<script src="{{ 'kt-product.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Fiche produit",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "rating", "label": "Note affichée", "default": "4.8/5" },
+    { "type": "text", "id": "reviews_count", "label": "Nombre d'avis", "default": "1929" },
+    { "type": "text", "id": "offer_text", "label": "Bandeau offre", "default": "2 maillots achetés = 1 OFFERT · Livraison offerte" },
+    { "type": "text", "id": "trust1", "label": "Atout 1", "default": "+250 000 Clients" },
+    { "type": "text", "id": "trust2", "label": "Atout 2", "default": "Flocage premium" },
+    { "type": "text", "id": "trust3", "label": "Atout 3", "default": "Livraison rapide + suivi" },
+    { "type": "checkbox", "id": "show_flocage", "label": "Afficher les champs de flocage", "default": true },
+    { "type": "textarea", "id": "badges_options", "label": "Options de badges (une par ligne)", "default": "Champions League\nLigue 1\nCoupe du Monde" },
+    { "type": "text", "id": "payments", "label": "Moyens de paiement", "default": "AMEX, Pay, CB, Maestro, MC, PayPal, VISA" },
+    { "type": "text", "id": "check1", "label": "Garantie 1", "default": "Paiement 100% sécurisé" },
+    { "type": "text", "id": "check2", "label": "Garantie 2", "default": "Retours faciles sous 30 jours" },
+    { "type": "text", "id": "check3", "label": "Garantie 3", "default": "Livraison suivie en Europe" },
+    { "type": "text", "id": "hot_text", "label": "Texte urgence", "default": "+250 commandes passées cette semaine" },
+    { "type": "textarea", "id": "specs_fallback", "label": "Spécifications (si description vide)", "default": "Maillot de football haute qualité, coupe ajustée, technologie respirante." },
+    { "type": "textarea", "id": "materials", "label": "Matériaux & entretien", "default": "100% polyester recyclé. Lavage à 30°C sur l'envers, sans sèche-linge." }
+  ],
+  "presets": [ { "name": "KetShop — Fiche produit" } ]
+}
+{% endschema %}
