@@ -1,6 +1,8 @@
 {{ 'kt-home.css' | asset_url | stylesheet_tag }}
 {{ 'kt-drawer.css' | asset_url | stylesheet_tag }}
+{{ 'kt-searchbar.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'kt-drawer.js' | asset_url }}" defer></script>
+<script src="{{ 'kt-searchbar.js' | asset_url }}" defer></script>
 <div class="kt" data-kt-section>
   <header class="header">
     <button class="icon-btn nav-toggle" aria-label="Menu" data-nav-toggle data-target="kt-mainNav">
@@ -26,7 +28,7 @@
 
     <div class="header__actions">
       <button class="pill">{{ section.settings.region_text }} <span class="chev">▾</span></button>
-      <a href="{{ routes.search_url }}" class="icon-btn" aria-label="Recherche">🔍</a>
+      <button type="button" class="icon-btn" aria-label="Recherche" data-kt-search-toggle>🔍</button>
       <a href="{{ routes.account_url }}" class="icon-btn" aria-label="Compte">👤</a>
       <a href="{{ routes.cart_url }}" class="icon-btn cart" aria-label="Panier">🛍️<span class="cart__badge">{{ cart.item_count }}</span></a>
     </div>
