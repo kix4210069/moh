@@ -1,0 +1,38 @@
+{{ 'kt-home.css' | asset_url | stylesheet_tag }}
+<div class="kt" data-kt-section>
+  <section class="faq">
+    {%- if section.settings.eyebrow != blank -%}<p class="eyebrow red center">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    <h2 class="center">{{ section.settings.heading }}</h2>
+    <div class="faq__list">
+      {%- for block in section.blocks -%}
+        <details class="faq__item" {{ block.shopify_attributes }}>
+          <summary>{{ block.settings.question }}<span class="plus">+</span></summary>
+          <p>{{ block.settings.answer }}</p>
+        </details>
+      {%- endfor -%}
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "SUPPORT" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Vos questions / Nos réponses" }
+  ],
+  "blocks": [
+    { "type": "qa", "name": "Question", "settings": [
+      { "type": "text", "id": "question", "label": "Question", "default": "Quels sont les délais de livraison ?" },
+      { "type": "textarea", "id": "answer", "label": "Réponse", "default": "La réception se fait généralement entre 8 et 14 jours." }
+    ]}
+  ],
+  "presets": [ { "name": "KetShop — FAQ", "blocks": [
+    { "type": "qa", "settings": { "question": "Quel est le délai de préparation de ma commande ?", "answer": "Votre commande est préparée sous 24 à 48h ouvrées après validation du paiement." } },
+    { "type": "qa", "settings": { "question": "Quels sont les délais de livraison ?", "answer": "La réception se fait généralement entre 8 et 14 jours. Une livraison express est disponible au choix." } },
+    { "type": "qa", "settings": { "question": "Puis-je suivre ma commande ?", "answer": "Oui, un numéro de suivi vous est envoyé par e-mail dès l'expédition de votre colis." } },
+    { "type": "qa", "settings": { "question": "Peut-on personnaliser un maillot (flocage) ?", "answer": "Absolument, vous pouvez ajouter le nom et le numéro de votre choix lors de la commande." } }
+  ]}]
+}
+{% endschema %}

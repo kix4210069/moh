@@ -1,0 +1,48 @@
+{{ 'kt-home.css' | asset_url | stylesheet_tag }}
+<div class="kt" data-kt-section>
+  <header class="header">
+    <button class="icon-btn nav-toggle" aria-label="Menu" data-nav-toggle data-target="kt-mainNav">
+      <span></span><span></span><span></span>
+    </button>
+
+    <a href="{{ routes.root_url }}" class="logo">
+      {%- if section.settings.logo != blank -%}
+        <img src="{{ section.settings.logo | image_url: width: 240 }}" alt="{{ shop.name }}" style="max-height:46px;width:auto">
+      {%- else -%}
+        <span class="logo__mark">{{ section.settings.logo_text }}</span>
+        <span class="logo__sub">{{ section.settings.logo_sub }}</span>
+      {%- endif -%}
+    </a>
+
+    <nav class="main-nav" id="kt-mainNav">
+      {%- if section.settings.menu != blank -%}
+        {%- for link in section.settings.menu.links -%}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {%- endfor -%}
+      {%- endif -%}
+    </nav>
+
+    <div class="header__actions">
+      <button class="pill">{{ section.settings.region_text }} <span class="chev">▾</span></button>
+      <a href="{{ routes.search_url }}" class="icon-btn" aria-label="Recherche">🔍</a>
+      <a href="{{ routes.account_url }}" class="icon-btn" aria-label="Compte">👤</a>
+      <a href="{{ routes.cart_url }}" class="icon-btn cart" aria-label="Panier">🛍️<span class="cart__badge">{{ cart.item_count }}</span></a>
+    </div>
+  </header>
+</div>
+<script src="{{ 'kt-home.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "En-tête KetShop",
+  "tag": "section",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo (image, optionnel)" },
+    { "type": "text", "id": "logo_text", "label": "Texte du logo", "default": "KETSHOP" },
+    { "type": "text", "id": "logo_sub", "label": "Sous-texte du logo", "default": "MAILLOT" },
+    { "type": "link_list", "id": "menu", "label": "Menu de navigation" },
+    { "type": "text", "id": "region_text", "label": "Texte pays/devise", "default": "France | EUR €" }
+  ],
+  "presets": [ { "name": "KetShop — En-tête" } ]
+}
+{% endschema %}

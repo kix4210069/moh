@@ -1,0 +1,79 @@
+{{ 'kt-home.css' | asset_url | stylesheet_tag }}
+<div class="kt" data-kt-section>
+  <div class="footer" style="position:relative">
+    <div class="footer__info">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'info' -%}
+          <div class="finfo" {{ block.shopify_attributes }}>
+            <span class="finfo__icon">{{ block.settings.icon }}</span>
+            <div><strong>{{ block.settings.title }}</strong><span>{{ block.settings.text }}</span></div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <div class="footer__main">
+      <div class="newsletter">
+        <h3>{{ section.settings.newsletter_title }}</h3>
+        {%- form 'customer' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="newsletter__form">
+            <input type="email" name="contact[email]" placeholder="E-mail" aria-label="E-mail" required>
+            <button type="submit" aria-label="S'abonner">→</button>
+          </div>
+        {%- endform -%}
+      </div>
+      <div class="footer__social">
+        {%- if section.settings.instagram != blank -%}<a href="{{ section.settings.instagram }}" aria-label="Instagram">📷</a>{%- endif -%}
+        {%- if section.settings.tiktok != blank -%}<a href="{{ section.settings.tiktok }}" aria-label="TikTok">🎵</a>{%- endif -%}
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <div class="footer__region">
+        <span>Pays/région</span>
+        <button class="pill">{{ section.settings.region_text }} <span class="chev">▾</span></button>
+      </div>
+      <div class="footer__pay">
+        {%- assign pays = section.settings.payments | split: ',' -%}
+        {%- for p in pays -%}<span class="pay">{{ p | strip }}</span>{%- endfor -%}
+      </div>
+    </div>
+
+    <div class="footer__legal">
+      <span>{{ section.settings.copyright }}</span>
+      {%- if section.settings.legal_menu != blank -%}
+        {%- for link in section.settings.legal_menu.links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Pied de page KetShop",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "newsletter_title", "label": "Titre newsletter", "default": "S'abonner à nos e-mails" },
+    { "type": "url", "id": "instagram", "label": "Lien Instagram" },
+    { "type": "url", "id": "tiktok", "label": "Lien TikTok" },
+    { "type": "text", "id": "region_text", "label": "Texte pays/devise", "default": "France | EUR €" },
+    { "type": "text", "id": "payments", "label": "Moyens de paiement (séparés par des virgules)", "default": "AMEX, Pay, CB, Maestro, MC, PayPal, VISA" },
+    { "type": "text", "id": "copyright", "label": "Copyright", "default": "© 2026, KetShopMaillot" },
+    { "type": "link_list", "id": "legal_menu", "label": "Menu liens légaux (footer)" }
+  ],
+  "blocks": [
+    { "type": "info", "name": "Info contact", "settings": [
+      { "type": "text", "id": "icon", "label": "Icône (emoji)", "default": "💬" },
+      { "type": "text", "id": "title", "label": "Titre", "default": "Service client" },
+      { "type": "text", "id": "text", "label": "Texte", "default": "Lun–Dim, 9h–18h" }
+    ]}
+  ],
+  "presets": [ { "name": "KetShop — Pied de page", "blocks": [
+    { "type": "info", "settings": { "icon": "💬", "title": "Service client", "text": "Lun–Dim, 9h–18h" } },
+    { "type": "info", "settings": { "icon": "🚚", "title": "Livraison suivie", "text": "Colis tracké" } },
+    { "type": "info", "settings": { "icon": "✉️", "title": "Nous contacter", "text": "contact@ketshopmaillot.com" } },
+    { "type": "info", "settings": { "icon": "📍", "title": "Adresse", "text": "Paris, France" } }
+  ]}]
+}
+{% endschema %}

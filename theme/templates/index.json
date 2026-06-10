@@ -1,0 +1,152 @@
+{
+  "sections": {
+    "announce": {
+      "type": "kt-announcement",
+      "blocks": {
+        "a1": { "type": "message", "settings": { "text": "2 ACHETÉS = 3ÈME OFFERT" } },
+        "a2": { "type": "message", "settings": { "text": "LIVRAISON EXPRESS DISPONIBLE" } },
+        "a3": { "type": "message", "settings": { "text": "RÉCEPTION ENTRE 8 ET 14 JOURS" } }
+      },
+      "block_order": ["a1", "a2", "a3"]
+    },
+    "header": {
+      "type": "kt-header",
+      "settings": {
+        "logo_text": "KETSHOP",
+        "logo_sub": "MAILLOT",
+        "menu": "main-menu",
+        "region_text": "France | EUR €"
+      }
+    },
+    "hero": {
+      "type": "kt-hero",
+      "settings": {
+        "eyebrow": "ÉDITION LIMITÉE",
+        "heading": "Maillot Collector\nChampions d'Europe",
+        "overlay_text": "BACK\n2\nBACK",
+        "button_label": "Découvrir la collection"
+      }
+    },
+    "leagues": {
+      "type": "kt-leagues",
+      "blocks": {
+        "l1": { "type": "league", "settings": { "label": "Ligue 1", "link": "/collections/ligue-1" } },
+        "l2": { "type": "league", "settings": { "label": "La Liga", "link": "/collections/liga" } },
+        "l3": { "type": "league", "settings": { "label": "Premier League", "link": "/collections/premiere-league" } },
+        "l4": { "type": "league", "settings": { "label": "Bundesliga", "link": "/collections/bundesliga" } },
+        "l5": { "type": "league", "settings": { "label": "Serie A", "link": "/collections/serie-a" } },
+        "l6": { "type": "league", "settings": { "label": "Coupe du monde", "link": "/collections/coupe-du-monde" } }
+      },
+      "block_order": ["l1", "l2", "l3", "l4", "l5", "l6"]
+    },
+    "row_moment": {
+      "type": "kt-products",
+      "settings": { "eyebrow": "SÉLECTION", "heading": "Nos maillots du moment", "collection": "best-sellers", "count": 8, "badge": "PROMO", "dark": false }
+    },
+    "row_saison": {
+      "type": "kt-products",
+      "settings": { "eyebrow": "NOUVEAUTÉ", "heading": "Saison 2025/2026", "collection": "saison-2025-2026", "count": 8, "badge": "NEW", "dark": true }
+    },
+    "promo": {
+      "type": "kt-promo",
+      "settings": {
+        "eyebrow": "OFFRE LIMITÉE",
+        "title": "2 ACHETÉS = 1 OFFERT\n+ LIVRAISON OFFERTE",
+        "subtitle": "Sur toute la boutique — jusqu'à épuisement des stocks",
+        "button_label": "En profiter maintenant",
+        "button_link": "/collections/best-sellers"
+      }
+    },
+    "row_cdm": {
+      "type": "kt-products",
+      "settings": { "eyebrow": "NOS MAILLOTS", "heading": "CDM 2026", "collection": "coupe-du-monde", "count": 8, "badge": "PROMO", "dark": false }
+    },
+    "feature_rm": {
+      "type": "kt-feature",
+      "settings": { "reverse": false, "heading": "Maillot Real Madrid Domicile\n2026/2027", "price": "€29,90", "button_label": "Acheter", "button_link": "/collections/best-sellers" }
+    },
+    "feature_back": {
+      "type": "kt-feature",
+      "settings": { "reverse": true, "eyebrow": "EXCLU", "heading": "Les maillots exclusifs\ndu BACK 2 BACK !", "price": "", "button_label": "Voir la collection", "button_link": "/collections/champion-deurope" }
+    },
+    "row_concept": {
+      "type": "kt-products",
+      "settings": { "eyebrow": "ÉDITION SPÉCIALE", "heading": "Concept", "collection": "concept", "count": 8, "badge": "EXCLU", "dark": false }
+    },
+    "row_enfants": {
+      "type": "kt-products",
+      "settings": { "eyebrow": "POUR LES PETITS", "heading": "Nos kits pour Enfants", "collection": "kits-enfants", "count": 8, "badge": "PROMO", "dark": true }
+    },
+    "stats": {
+      "type": "kt-stats",
+      "blocks": {
+        "s1": { "type": "stat", "settings": { "number": "+41 843", "label": "Clients satisfaits" } },
+        "s2": { "type": "stat", "settings": { "number": "+279", "label": "Modèles disponibles" } },
+        "s3": { "type": "stat", "settings": { "number": "4.8/5", "label": "Note moyenne" } }
+      },
+      "block_order": ["s1", "s2", "s3"]
+    },
+    "row_retro": {
+      "type": "kt-products",
+      "settings": { "eyebrow": "NOS MAILLOTS", "heading": "Rétro / Vintage", "collection": "retro-vintage", "count": 8, "badge": "PROMO", "dark": false }
+    },
+    "topgrid": {
+      "type": "kt-topgrid",
+      "settings": { "heading": "Top Maillots du moment" },
+      "blocks": {
+        "t1": { "type": "card", "settings": { "label": "Saint-Germain", "link": "/collections/ligue-1" } },
+        "t2": { "type": "card", "settings": { "label": "Real Madrid", "link": "/collections/liga" } },
+        "t3": { "type": "card", "settings": { "label": "FC Barcelone", "link": "/collections/liga" } },
+        "t4": { "type": "card", "settings": { "label": "Équipe de France", "link": "/collections/coupe-du-monde" } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4"]
+    },
+    "row_crampons": {
+      "type": "kt-products",
+      "settings": { "eyebrow": "CHAUSSURES", "heading": "Nos Crampons", "collection": "crampons", "count": 8, "badge": "PROMO", "dark": false }
+    },
+    "row_training": {
+      "type": "kt-products",
+      "settings": { "eyebrow": "SUMMER COLLECTION", "heading": "Nos Training pour cet été", "collection": "training", "count": 8, "badge": "PROMO", "dark": true }
+    },
+    "reviews": {
+      "type": "kt-reviews",
+      "settings": { "eyebrow": "AVIS CLIENTS", "heading": "Ce qu'ils pensent de nous", "score_label": "Excellent", "rating": "4.8 / 5", "count_text": "Voir nos 1 523 avis vérifiés" },
+      "blocks": {
+        "r1": { "type": "review", "settings": { "text": "Franchement lourd, le flocage est propre. Reçu vite, le rendu en vrai est encore mieux.", "author": "Yanis M.", "initial": "Y" } },
+        "r2": { "type": "review", "settings": { "text": "Qualité top, taille conforme, maillot identique à la description. Je recommande !", "author": "Karim L.", "initial": "K" } },
+        "r3": { "type": "review", "settings": { "text": "Très beau maillot, livraison rapide. Le flocage est nickel, je reviendrai.", "author": "Thomas R.", "initial": "T" } }
+      },
+      "block_order": ["r1", "r2", "r3"]
+    },
+    "faq": {
+      "type": "kt-faq",
+      "settings": { "eyebrow": "SUPPORT", "heading": "Vos questions / Nos réponses" },
+      "blocks": {
+        "f1": { "type": "qa", "settings": { "question": "Quel est le délai de préparation de ma commande ?", "answer": "Votre commande est préparée sous 24 à 48h ouvrées après validation du paiement." } },
+        "f2": { "type": "qa", "settings": { "question": "Quels sont les délais de livraison ?", "answer": "La réception se fait généralement entre 8 et 14 jours. Une livraison express est disponible au choix." } },
+        "f3": { "type": "qa", "settings": { "question": "Puis-je suivre ma commande ?", "answer": "Oui, un numéro de suivi vous est envoyé par e-mail dès l'expédition de votre colis." } },
+        "f4": { "type": "qa", "settings": { "question": "Proposez-vous des tailles enfant et adulte ?", "answer": "Oui, la plupart de nos maillots sont disponibles en tailles enfant et adulte (S à XXL)." } },
+        "f5": { "type": "qa", "settings": { "question": "Peut-on personnaliser un maillot (flocage) ?", "answer": "Absolument, vous pouvez ajouter le nom et le numéro de votre choix lors de la commande." } },
+        "f6": { "type": "qa", "settings": { "question": "Comment entretenir et laver mon maillot ?", "answer": "Lavage à 30°C sur l'envers, sans sèche-linge, pour préserver le flocage et les couleurs." } }
+      },
+      "block_order": ["f1", "f2", "f3", "f4", "f5", "f6"]
+    },
+    "footer": {
+      "type": "kt-footer",
+      "settings": { "newsletter_title": "S'abonner à nos e-mails", "region_text": "France | EUR €", "payments": "AMEX, Pay, CB, Maestro, MC, PayPal, VISA", "copyright": "© 2026, KetShopMaillot" },
+      "blocks": {
+        "i1": { "type": "info", "settings": { "icon": "💬", "title": "Service client", "text": "Lun–Dim, 9h–18h" } },
+        "i2": { "type": "info", "settings": { "icon": "🚚", "title": "Livraison suivie", "text": "Colis tracké" } },
+        "i3": { "type": "info", "settings": { "icon": "✉️", "title": "Nous contacter", "text": "contact@ketshopmaillot.com" } },
+        "i4": { "type": "info", "settings": { "icon": "📍", "title": "Adresse", "text": "Paris, France" } }
+      },
+      "block_order": ["i1", "i2", "i3", "i4"]
+    }
+  },
+  "order": [
+    "announce", "header", "hero", "leagues", "row_moment", "row_saison", "promo",
+    "row_cdm", "feature_rm", "feature_back", "row_concept", "row_enfants", "stats",
+    "row_retro", "topgrid", "row_crampons", "row_training", "reviews", "faq", "footer"
+  ]
+}

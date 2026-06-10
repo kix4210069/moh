@@ -1,0 +1,33 @@
+{{ 'kt-home.css' | asset_url | stylesheet_tag }}
+<div class="kt" data-kt-section>
+  <section class="promo">
+    {%- if section.settings.eyebrow != blank -%}<p class="eyebrow red">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    <h2 class="promo__title">{{ section.settings.title | newline_to_br }}</h2>
+    {%- if section.settings.subtitle != blank -%}<p class="promo__sub">{{ section.settings.subtitle }}</p>{%- endif -%}
+    <div class="countdown" data-countdown {% if section.settings.deadline != blank %}data-deadline="{{ section.settings.deadline }}"{% endif %}>
+      <div class="count"><span class="count__num" data-h>08</span><span class="count__lbl">HEURES</span></div>
+      <div class="count"><span class="count__num" data-m>59</span><span class="count__lbl">MINUTES</span></div>
+      <div class="count"><span class="count__num" data-s>53</span><span class="count__lbl">SECONDES</span></div>
+      {%- if section.settings.button_label != blank -%}
+        <a href="{{ section.settings.button_link }}" class="btn btn--primary promo__cta">{{ section.settings.button_label }}</a>
+      {%- endif -%}
+    </div>
+  </section>
+</div>
+<script src="{{ 'kt-home.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Bannière promo + compte à rebours",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "OFFRE LIMITÉE" },
+    { "type": "textarea", "id": "title", "label": "Titre", "default": "2 ACHETÉS = 1 OFFERT\n+ LIVRAISON OFFERTE" },
+    { "type": "text", "id": "subtitle", "label": "Sous-titre", "default": "Sur toute la boutique — jusqu'à épuisement des stocks" },
+    { "type": "text", "id": "deadline", "label": "Date de fin (AAAA-MM-JJ ou AAAA-MM-JJTHH:MM:SS). Vide = remise à minuit chaque jour" },
+    { "type": "text", "id": "button_label", "label": "Texte du bouton", "default": "En profiter maintenant" },
+    { "type": "url", "id": "button_link", "label": "Lien du bouton" }
+  ],
+  "presets": [ { "name": "KetShop — Bannière promo" } ]
+}
+{% endschema %}

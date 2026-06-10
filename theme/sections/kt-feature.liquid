@@ -1,0 +1,31 @@
+{{ 'kt-home.css' | asset_url | stylesheet_tag }}
+<div class="kt" data-kt-section>
+  <section class="feature {% if section.settings.reverse %}feature--reverse{% endif %}">
+    <div class="feature__img" {% if section.settings.image != blank %}style="background-image:url('{{ section.settings.image | image_url: width: 1400 }}')"{% endif %}></div>
+    <div class="feature__text">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow red">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h3>{{ section.settings.heading | newline_to_br }}</h3>
+      {%- if section.settings.price != blank -%}<p class="price">{{ section.settings.price }}</p>{%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <a href="{{ section.settings.button_link }}" class="btn btn--outline">{{ section.settings.button_label }}</a>
+      {%- endif -%}
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Bannière mise en avant",
+  "tag": "section",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "checkbox", "id": "reverse", "label": "Inverser (texte à gauche)", "default": false },
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre" },
+    { "type": "textarea", "id": "heading", "label": "Titre", "default": "Maillot Real Madrid Domicile\n2026/2027" },
+    { "type": "text", "id": "price", "label": "Prix (texte libre)", "default": "€29,90" },
+    { "type": "text", "id": "button_label", "label": "Texte du bouton", "default": "Acheter" },
+    { "type": "url", "id": "button_link", "label": "Lien du bouton" }
+  ],
+  "presets": [ { "name": "KetShop — Bannière" } ]
+}
+{% endschema %}

@@ -1,0 +1,44 @@
+{{ 'kt-home.css' | asset_url | stylesheet_tag }}
+<div class="kt" data-kt-section>
+  <section class="section">
+    {%- if section.settings.eyebrow != blank -%}<p class="eyebrow center">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    <h2 class="center">{{ section.settings.heading }}</h2>
+    <div class="leagues">
+      {%- for block in section.blocks -%}
+        <a class="league" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            <img src="{{ block.settings.image | image_url: width: 200 }}" alt="{{ block.settings.label | escape }}" style="max-height:48px;width:auto">
+          {%- else -%}
+            {{ block.settings.label }}
+          {%- endif -%}
+        </a>
+      {%- endfor -%}
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Ligues",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "PARCOURIR PAR LIGUE" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Toutes les ligues" }
+  ],
+  "blocks": [
+    { "type": "league", "name": "Ligue", "settings": [
+      { "type": "text", "id": "label", "label": "Nom", "default": "Ligue 1" },
+      { "type": "image_picker", "id": "image", "label": "Logo (optionnel)" },
+      { "type": "url", "id": "link", "label": "Lien" }
+    ]}
+  ],
+  "presets": [ { "name": "KetShop — Ligues", "blocks": [
+    { "type": "league", "settings": { "label": "Ligue 1" } },
+    { "type": "league", "settings": { "label": "La Liga" } },
+    { "type": "league", "settings": { "label": "Premier League" } },
+    { "type": "league", "settings": { "label": "Bundesliga" } },
+    { "type": "league", "settings": { "label": "Serie A" } },
+    { "type": "league", "settings": { "label": "FIFA" } }
+  ]}]
+}
+{% endschema %}

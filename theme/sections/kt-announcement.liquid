@@ -1,0 +1,37 @@
+{{ 'kt-home.css' | asset_url | stylesheet_tag }}
+<div class="kt" data-kt-section style="background:{{ section.settings.bg }}">
+  <div class="announce" style="background:{{ section.settings.bg }}">
+    <div class="announce__track">
+      {%- for i in (1..2) -%}
+        {%- for block in section.blocks -%}
+          <span {{ block.shopify_attributes }}>{{ block.settings.text }}</span>
+          {%- unless forloop.last -%}<span class="dot">•</span>{%- endunless -%}
+        {%- endfor -%}
+        <span class="dot">•</span>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+<script src="{{ 'kt-home.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Barre d'annonce",
+  "tag": "section",
+  "settings": [
+    { "type": "color", "id": "bg", "label": "Couleur de fond", "default": "#000000" }
+  ],
+  "blocks": [
+    { "type": "message", "name": "Message", "settings": [
+      { "type": "text", "id": "text", "label": "Texte", "default": "2 ACHETÉS = 3ÈME OFFERT" }
+    ]}
+  ],
+  "presets": [
+    { "name": "KetShop — Barre d'annonce", "blocks": [
+      { "type": "message", "settings": { "text": "2 ACHETÉS = 3ÈME OFFERT" } },
+      { "type": "message", "settings": { "text": "LIVRAISON EXPRESS DISPONIBLE" } },
+      { "type": "message", "settings": { "text": "RÉCEPTION ENTRE 8 ET 14 JOURS" } }
+    ]}
+  ]
+}
+{% endschema %}
