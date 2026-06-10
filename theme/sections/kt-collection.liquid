@@ -1,0 +1,86 @@
+{{ 'kt-home.css' | asset_url | stylesheet_tag }}
+<style>
+.kt-coll{max-width:var(--maxw);margin:0 auto;padding:2rem clamp(1rem,4vw,2rem)}
+.kt-coll__head h1{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:.3rem}
+.kt-coll__desc{color:var(--muted);max-width:680px;margin-bottom:1rem}
+.kt-coll__bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;border-top:1px solid var(--grey-2);border-bottom:1px solid var(--grey-2);padding:.8rem 0;margin-bottom:1.6rem}
+.kt-coll__count{font-size:.85rem;color:var(--muted)}
+.kt-coll__sort{display:flex;align-items:center;gap:.5rem;font-size:.85rem}
+.kt-coll__sort select{border:1px solid #ccc;border-radius:8px;padding:.5rem .7rem;font:inherit;background:#fff}
+.kt-coll-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem}
+.kt-coll-grid .card__media{aspect-ratio:1/1}
+.kt-coll-empty{padding:3rem 1rem;text-align:center;color:var(--muted)}
+.kt-coll__pagination{display:flex;justify-content:center;gap:.5rem;margin-top:2rem}
+.kt-coll__pagination a,.kt-coll__pagination span{padding:.5rem .85rem;border:1px solid var(--grey-2);border-radius:8px;font-size:.85rem;text-decoration:none;color:inherit}
+.kt-coll__pagination .current{background:var(--red);color:#fff;border-color:var(--red)}
+@media(max-width:900px){.kt-coll-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:640px){.kt-coll-grid{grid-template-columns:repeat(2,1fr);gap:1rem}}
+</style>
+<div class="kt" data-kt-section>
+  <div class="kt-coll">
+    <div class="kt-coll__head">
+      <h1>{{ collection.title }}</h1>
+      {%- if collection.description != blank and section.settings.show_description -%}
+        <div class="kt-coll__desc">{{ collection.description }}</div>
+      {%- endif -%}
+    </div>
+
+    {%- paginate collection.products by section.settings.per_page -%}
+      <div class="kt-coll__bar">
+        <span class="kt-coll__count">{{ collection.products_count }} article{% if collection.products_count > 1 %}s{% endif %}</span>
+        {%- if section.settings.show_sort -%}
+          <form method="get" class="kt-coll__sort">
+            <label for="kt-sort">Trier&nbsp;:</label>
+            <select name="sort_by" id="kt-sort" onchange="this.form.submit()">
+              {%- assign cur = collection.sort_by | default: collection.default_sort_by -%}
+              <option value="manual" {% if cur == 'manual' %}selected{% endif %}>En vedette</option>
+              <option value="best-selling" {% if cur == 'best-selling' %}selected{% endif %}>Meilleures ventes</option>
+              <option value="title-ascending" {% if cur == 'title-ascending' %}selected{% endif %}>A → Z</option>
+              <option value="title-descending" {% if cur == 'title-descending' %}selected{% endif %}>Z → A</option>
+              <option value="price-ascending" {% if cur == 'price-ascending' %}selected{% endif %}>Prix croissant</option>
+              <option value="price-descending" {% if cur == 'price-descending' %}selected{% endif %}>Prix décroissant</option>
+              <option value="created-descending" {% if cur == 'created-descending' %}selected{% endif %}>Nouveautés</option>
+            </select>
+          </form>
+        {%- endif -%}
+      </div>
+
+      {%- if collection.products.size > 0 -%}
+        <div class="kt-coll-grid">
+          {%- for product in collection.products -%}
+            <a class="card" href="{{ product.url }}">
+              <div class="card__media">
+                {%- if product.compare_at_price > product.price -%}<span class="card__badge">{{ section.settings.badge }}</span>{%- endif -%}
+                {%- if product.featured_image -%}<img src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title | escape }}" loading="lazy">{%- endif -%}
+              </div>
+              <div class="card__title">{{ product.title }}</div>
+              <div class="card__price">
+                {{ product.price | money }}
+                {%- if product.compare_at_price > product.price -%}<span class="old">{{ product.compare_at_price | money }}</span>{%- endif -%}
+              </div>
+            </a>
+          {%- endfor -%}
+        </div>
+        {%- if paginate.pages > 1 -%}
+          <div class="kt-coll__pagination">{{ paginate | default_pagination }}</div>
+        {%- endif -%}
+      {%- else -%}
+        <div class="kt-coll-empty">Aucun produit dans cette collection pour le moment.</div>
+      {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection KetShop",
+  "tag": "section",
+  "settings": [
+    { "type": "range", "id": "per_page", "label": "Produits par page", "min": 8, "max": 48, "step": 4, "default": 24 },
+    { "type": "checkbox", "id": "show_sort", "label": "Afficher le tri", "default": true },
+    { "type": "checkbox", "id": "show_description", "label": "Afficher la description", "default": true },
+    { "type": "text", "id": "badge", "label": "Texte du badge promo", "default": "PROMO" }
+  ],
+  "presets": [ { "name": "KetShop — Collection" } ]
+}
+{% endschema %}

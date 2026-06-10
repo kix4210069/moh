@@ -1,0 +1,37 @@
+{
+  "sections": {
+    "announce": {
+      "type": "kt-announcement",
+      "blocks": {
+        "a1": { "type": "message", "settings": { "text": "2 ACHETÉS = 3ÈME OFFERT" } },
+        "a2": { "type": "message", "settings": { "text": "LIVRAISON EXPRESS DISPONIBLE" } },
+        "a3": { "type": "message", "settings": { "text": "RÉCEPTION ENTRE 8 ET 14 JOURS" } }
+      },
+      "block_order": ["a1", "a2", "a3"]
+    },
+    "header": {
+      "type": "kt-header",
+      "settings": { "logo_text": "KETSHOP", "logo_sub": "MAILLOT", "menu": "main-menu", "region_text": "France | EUR €" }
+    },
+    "offerbar": {
+      "type": "kt-offerbar",
+      "settings": { "text": "2 ACHETÉS = 1 OFFERT · Livraison offerte", "tag": "OFFRE", "before": "Se termine dans" }
+    },
+    "main": {
+      "type": "kt-collection",
+      "settings": { "per_page": 24, "show_sort": true, "show_description": true, "badge": "PROMO" }
+    },
+    "footer": {
+      "type": "kt-footer",
+      "settings": { "newsletter_title": "S'abonner à nos e-mails", "region_text": "France | EUR €", "payments": "AMEX, Pay, CB, Maestro, MC, PayPal, VISA", "copyright": "© 2026, KetShopMaillot" },
+      "blocks": {
+        "i1": { "type": "info", "settings": { "icon": "💬", "title": "Service client", "text": "Lun–Dim, 9h–18h" } },
+        "i2": { "type": "info", "settings": { "icon": "🚚", "title": "Livraison suivie", "text": "Colis tracké" } },
+        "i3": { "type": "info", "settings": { "icon": "✉️", "title": "Nous contacter", "text": "contact@ketshopmaillot.com" } },
+        "i4": { "type": "info", "settings": { "icon": "📍", "title": "Adresse", "text": "Paris, France" } }
+      },
+      "block_order": ["i1", "i2", "i3", "i4"]
+    }
+  },
+  "order": ["announce", "header", "offerbar", "main", "footer"]
+}
