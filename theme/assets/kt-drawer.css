@@ -1,0 +1,58 @@
+/* ===== KetShop slide cart drawer ===== */
+.kt-drawer-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.5); opacity: 0; visibility: hidden;
+  transition: opacity .3s; z-index: 9998;
+}
+.kt-drawer-overlay.is-open { opacity: 1; visibility: visible; }
+
+.kt-drawer {
+  position: fixed; top: 0; right: 0; height: 100%; width: 410px; max-width: 92vw;
+  background: #fff; z-index: 9999; transform: translateX(100%); transition: transform .32s ease;
+  display: flex; flex-direction: column; box-shadow: -8px 0 30px rgba(0,0,0,.18);
+  font-family: "Poppins", system-ui, sans-serif;
+}
+.kt-drawer.is-open { transform: translateX(0); }
+
+.kt-drawer__head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem 1.2rem; border-bottom: 1px solid #eee;
+}
+.kt-drawer__head strong { font-size: 1.05rem; font-weight: 800; }
+.kt-drawer__close { background: none; border: none; font-size: 1.3rem; cursor: pointer; line-height: 1; color: #333; }
+
+.kt-drawer__ship { padding: 1rem 1.2rem; background: #f7f7f8; }
+.kt-drawer__shiptext { font-size: .82rem; font-weight: 600; text-align: center; margin-bottom: .55rem; }
+.kt-drawer__shiptext b { color: #2fb85c; }
+.kt-drawer__track { height: 7px; background: #e2e2e6; border-radius: 20px; overflow: hidden; }
+.kt-drawer__fill { height: 100%; width: 0; background: #7ed957; border-radius: 20px; transition: width .4s; }
+
+.kt-drawer__items { flex: 1; overflow-y: auto; padding: .5rem 1.2rem; }
+.kt-ditem { display: grid; grid-template-columns: 64px 1fr auto; gap: .8rem; padding: 1rem 0; border-bottom: 1px solid #f0f0f0; }
+.kt-ditem__img { width: 64px; height: 64px; border-radius: 8px; overflow: hidden; background: #f4f4f5; }
+.kt-ditem__img img { width: 100%; height: 100%; object-fit: cover; }
+.kt-ditem__title { font-size: .82rem; font-weight: 600; line-height: 1.25; color: #111; }
+.kt-ditem__meta { font-size: .72rem; color: #8a8a92; margin-top: 2px; }
+.kt-ditem__price { font-weight: 700; font-size: .85rem; white-space: nowrap; text-align: right; }
+.kt-dqty { display: inline-flex; align-items: center; border: 1px solid #ddd; border-radius: 7px; overflow: hidden; margin-top: .5rem; }
+.kt-dqty button { border: none; background: #fff; width: 28px; height: 30px; font-size: .95rem; cursor: pointer; }
+.kt-dqty span { width: 30px; text-align: center; font-size: .82rem; line-height: 30px; }
+.kt-ditem__remove { background: none; border: none; color: #b0b0b6; font-size: .7rem; text-decoration: underline; cursor: pointer; padding: 0; margin-top: .4rem; display: block; }
+
+.kt-drawer__empty { text-align: center; color: #8a8a92; padding: 3rem 1rem; }
+
+.kt-drawer__foot { border-top: 1px solid #eee; padding: 1.1rem 1.2rem; }
+.kt-drawer__sub { display: flex; justify-content: space-between; font-weight: 800; font-size: 1.05rem; margin-bottom: .3rem; }
+.kt-drawer__taxes { font-size: .72rem; color: #8a8a92; margin-bottom: .9rem; }
+.kt-drawer__checkout {
+  display: block; text-align: center; background: #111; color: #fff; border-radius: 30px;
+  padding: .95rem; font-weight: 700; text-decoration: none; transition: background .2s;
+}
+.kt-drawer__checkout:hover { background: #000; }
+.kt-drawer__viewcart { display: block; text-align: center; margin-top: .6rem; font-size: .82rem; color: #8a8a92; text-decoration: underline; }
+
+.kt-drawer__loading { position: absolute; inset: 0; background: rgba(255,255,255,.6); display: none; place-items: center; z-index: 2; }
+.kt-drawer.is-loading .kt-drawer__loading { display: grid; }
+.kt-spin { width: 30px; height: 30px; border: 3px solid #ddd; border-top-color: #7ed957; border-radius: 50%; animation: ktspin .7s linear infinite; }
+@keyframes ktspin { to { transform: rotate(360deg); } }
+
+@media (max-width: 480px) { .kt-drawer { width: 100%; max-width: 100%; } }
