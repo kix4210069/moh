@@ -1,0 +1,21 @@
+/* ===== KetShop slide menu (left) ===== */
+.header .nav-toggle{display:flex !important}
+.kt-menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:opacity .25s;z-index:10001}
+.kt-menu-overlay.is-open{opacity:1;visibility:visible}
+.kt-menu{position:fixed;top:0;left:0;height:100%;width:340px;max-width:86vw;background:#fff;z-index:10002;transform:translateX(-100%);transition:transform .3s ease;display:flex;flex-direction:column;box-shadow:8px 0 30px rgba(0,0,0,.18);font-family:"Poppins",system-ui,sans-serif}
+.kt-menu.is-open{transform:translateX(0)}
+.kt-menu__head{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.2rem;border-bottom:1px solid #eee}
+.kt-menu__head strong{font-weight:800;font-size:1.05rem}
+.kt-menu__close{background:none;border:none;font-size:1.3rem;cursor:pointer;line-height:1;color:#333}
+.kt-menu__list{list-style:none;margin:0;padding:.4rem 0;overflow-y:auto;flex:1}
+.kt-menu__list>li{border-bottom:1px solid #f3f3f4}
+.kt-menu__row{display:flex;align-items:center;justify-content:space-between}
+.kt-menu__list a{display:block;padding:.95rem 1.3rem;text-decoration:none;color:#111;font-weight:600;font-size:.95rem;flex:1}
+.kt-menu__list a:hover{color:var(--red,#2fb85c)}
+.kt-menu__toggle{background:none;border:none;font-size:1.1rem;padding:.6rem 1.1rem;cursor:pointer;color:#888}
+.kt-menu__sub{list-style:none;margin:0;padding:0;max-height:0;overflow:hidden;transition:max-height .25s ease;background:#fafafa}
+.kt-menu__sub.is-open{max-height:600px}
+.kt-menu__sub a{padding:.7rem 1.3rem .7rem 2.2rem;font-weight:500;font-size:.88rem;color:#555}
+.kt-menu__foot{border-top:1px solid #eee;padding:1rem 1.3rem;display:flex;gap:1.4rem}
+.kt-menu__foot a{color:#666;text-decoration:none;font-size:.86rem;display:flex;align-items:center;gap:.4rem}
+.kt-menu__foot a:hover{color:#111}

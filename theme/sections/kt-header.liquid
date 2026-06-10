@@ -1,11 +1,13 @@
 {{ 'kt-home.css' | asset_url | stylesheet_tag }}
 {{ 'kt-drawer.css' | asset_url | stylesheet_tag }}
 {{ 'kt-searchbar.css' | asset_url | stylesheet_tag }}
+{{ 'kt-menu.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'kt-drawer.js' | asset_url }}" defer></script>
 <script src="{{ 'kt-searchbar.js' | asset_url }}" defer></script>
+<script src="{{ 'kt-menu.js' | asset_url }}" defer></script>
 <div class="kt" data-kt-section>
   <header class="header">
-    <button class="icon-btn nav-toggle" aria-label="Menu" data-nav-toggle data-target="kt-mainNav">
+    <button type="button" class="icon-btn nav-toggle" aria-label="Menu" data-kt-menu-toggle>
       <span></span><span></span><span></span>
     </button>
 
@@ -18,14 +20,6 @@
       {%- endif -%}
     </a>
 
-    <nav class="main-nav" id="kt-mainNav">
-      {%- if section.settings.menu != blank -%}
-        {%- for link in section.settings.menu.links -%}
-          <a href="{{ link.url }}">{{ link.title }}</a>
-        {%- endfor -%}
-      {%- endif -%}
-    </nav>
-
     <div class="header__actions">
       <button class="pill">{{ section.settings.region_text }} <span class="chev">▾</span></button>
       <button type="button" class="icon-btn" aria-label="Recherche" data-kt-search-toggle>🔍</button>
@@ -36,6 +30,33 @@
 </div>
 <script src="{{ 'kt-home.js' | asset_url }}" defer></script>
 
+<!-- Menu latéral -->
+<div class="kt-menu-overlay" data-kt-menu-overlay></div>
+<aside class="kt-menu" data-kt-menu aria-hidden="true">
+  <div class="kt-menu__head"><strong>{{ section.settings.menu_title }}</strong><button class="kt-menu__close" data-kt-menu-close aria-label="Fermer">✕</button></div>
+  <ul class="kt-menu__list">
+    {%- if section.settings.menu != blank -%}
+      {%- for link in section.settings.menu.links -%}
+        <li>
+          <div class="kt-menu__row">
+            <a href="{{ link.url }}">{{ link.title }}</a>
+            {%- if link.links.size > 0 -%}<button type="button" class="kt-menu__toggle" data-kt-sub aria-label="Déplier">+</button>{%- endif -%}
+          </div>
+          {%- if link.links.size > 0 -%}
+            <ul class="kt-menu__sub">
+              {%- for child in link.links -%}<li><a href="{{ child.url }}">{{ child.title }}</a></li>{%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    {%- endif -%}
+  </ul>
+  <div class="kt-menu__foot">
+    <a href="{{ routes.account_url }}">👤 Mon compte</a>
+    <a href="{{ routes.cart_url }}">🛍️ Panier</a>
+  </div>
+</aside>
+
 {% schema %}
 {
   "name": "En-tête KetShop",
@@ -45,6 +66,7 @@
     { "type": "text", "id": "logo_text", "label": "Texte du logo", "default": "KETSHOP" },
     { "type": "text", "id": "logo_sub", "label": "Sous-texte du logo", "default": "MAILLOT" },
     { "type": "link_list", "id": "menu", "label": "Menu de navigation" },
+    { "type": "text", "id": "menu_title", "label": "Titre du menu latéral", "default": "Menu" },
     { "type": "text", "id": "region_text", "label": "Texte pays/devise", "default": "France | EUR €" }
   ],
   "presets": [ { "name": "KetShop — En-tête" } ]
