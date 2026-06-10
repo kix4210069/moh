@@ -1,4 +1,5 @@
 {{ 'kt-home.css' | asset_url | stylesheet_tag }}
+<style>.section__actions{display:flex;align-items:center;gap:1rem}.kt-seeall{color:var(--red);font-weight:700;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;white-space:nowrap}.kt-seeall:hover{text-decoration:underline}</style>
 {%- assign col = section.settings.collection -%}
 <div class="kt {% if section.settings.dark %}dark-strip{% endif %}" data-kt-section>
   <section class="section">
@@ -7,9 +8,14 @@
         {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
         <h2>{{ section.settings.heading }}</h2>
       </div>
-      <div class="arrows" data-arrows>
-        <button class="arrow" data-scroll="prev" aria-label="Précédent">‹</button>
-        <button class="arrow" data-scroll="next" aria-label="Suivant">›</button>
+      <div class="section__actions">
+        {%- if section.settings.show_view_all and col != blank -%}
+          <a class="kt-seeall" href="{{ col.url }}">{{ section.settings.view_all_label }}</a>
+        {%- endif -%}
+        <div class="arrows" data-arrows>
+          <button class="arrow" data-scroll="prev" aria-label="Précédent">‹</button>
+          <button class="arrow" data-scroll="next" aria-label="Suivant">›</button>
+        </div>
       </div>
     </div>
 
@@ -52,6 +58,8 @@
     { "type": "collection", "id": "collection", "label": "Collection à afficher" },
     { "type": "range", "id": "count", "label": "Nombre de produits", "min": 4, "max": 16, "step": 1, "default": 8 },
     { "type": "text", "id": "badge", "label": "Texte du badge promo", "default": "PROMO" },
+    { "type": "checkbox", "id": "show_view_all", "label": "Afficher « Voir tout »", "default": true },
+    { "type": "text", "id": "view_all_label", "label": "Texte « Voir tout »", "default": "Voir tout" },
     { "type": "checkbox", "id": "dark", "label": "Fond noir", "default": false }
   ],
   "presets": [ { "name": "KetShop — Rangée de produits" } ]
