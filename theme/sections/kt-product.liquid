@@ -84,8 +84,7 @@
       {%- endform -%}
 
       <div class="kt-paypics">
-        {%- assign pays = section.settings.payments | split: ',' -%}
-        {%- for p in pays -%}<span class="pay">{{ p | strip }}</span>{%- endfor -%}
+        {%- render 'kt-payicons' -%}
       </div>
 
       <ul class="kt-checks">

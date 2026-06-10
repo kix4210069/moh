@@ -35,8 +35,7 @@
         <button class="pill">{{ section.settings.region_text }} <span class="chev">▾</span></button>
       </div>
       <div class="footer__pay">
-        {%- assign pays = section.settings.payments | split: ',' -%}
-        {%- for p in pays -%}<span class="pay">{{ p | strip }}</span>{%- endfor -%}
+        {%- render 'kt-payicons' -%}
       </div>
     </div>
 

@@ -93,8 +93,7 @@
               <li><span class="ok">✓</span> {{ section.settings.re3 }}</li>
             </ul>
             <div class="kt-paypics">
-              {%- assign pays = section.settings.payments | split: ',' -%}
-              {%- for p in pays -%}<span class="pay">{{ p | strip }}</span>{%- endfor -%}
+              {%- render 'kt-payicons' -%}
             </div>
           </aside>
         </div>
