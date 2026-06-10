@@ -1,16 +1,30 @@
 {{ 'kt-home.css' | asset_url | stylesheet_tag }}
-<div class="kt" data-kt-section>
+<style>
+.leagues{display:flex;gap:1.4rem;overflow-x:auto;padding:.5rem .2rem 1rem;scrollbar-width:thin}
+.kt-league{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:.55rem;width:100px;text-decoration:none;color:inherit}
+.kt-league__logo{width:88px;height:88px;border-radius:50%;background:#fff;border:1px solid var(--grey-2);display:grid;place-items:center;overflow:hidden;font-weight:800;font-size:.8rem;color:#333;text-align:center;padding:6px;transition:transform .15s,box-shadow .2s,border-color .2s}
+.kt-league:hover .kt-league__logo{transform:translateY(-4px);box-shadow:0 12px 26px rgba(0,0,0,.14);border-color:var(--red)}
+.kt-league__logo img{width:100%;height:100%;object-fit:contain}
+.kt-league__name{font-size:.76rem;font-weight:600;text-align:center;line-height:1.2}
+.kt-league:hover .kt-league__name{color:var(--red)}
+.dark-strip .kt-league__name{color:#eee}
+.dark-strip .kt-league__logo{background:#fff}
+</style>
+<div class="kt {% if section.settings.dark %}dark-strip{% endif %}" data-kt-section>
   <section class="section">
     {%- if section.settings.eyebrow != blank -%}<p class="eyebrow center">{{ section.settings.eyebrow }}</p>{%- endif -%}
     <h2 class="center">{{ section.settings.heading }}</h2>
     <div class="leagues">
       {%- for block in section.blocks -%}
-        <a class="league" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>
-          {%- if block.settings.image != blank -%}
-            <img src="{{ block.settings.image | image_url: width: 200 }}" alt="{{ block.settings.label | escape }}" style="max-height:48px;width:auto">
-          {%- else -%}
-            {{ block.settings.label }}
-          {%- endif -%}
+        <a class="kt-league" href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>
+          <span class="kt-league__logo">
+            {%- if block.settings.image != blank -%}
+              <img src="{{ block.settings.image | image_url: width: 180 }}" alt="{{ block.settings.label | escape }}" loading="lazy">
+            {%- else -%}
+              {{ block.settings.label }}
+            {%- endif -%}
+          </span>
+          {%- if block.settings.show_name -%}<span class="kt-league__name">{{ block.settings.label }}</span>{%- endif -%}
         </a>
       {%- endfor -%}
     </div>
@@ -23,13 +37,15 @@
   "tag": "section",
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "PARCOURIR PAR LIGUE" },
-    { "type": "text", "id": "heading", "label": "Titre", "default": "Toutes les ligues" }
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Toutes les ligues" },
+    { "type": "checkbox", "id": "dark", "label": "Fond noir", "default": false }
   ],
   "blocks": [
     { "type": "league", "name": "Ligue", "settings": [
       { "type": "text", "id": "label", "label": "Nom", "default": "Ligue 1" },
-      { "type": "image_picker", "id": "image", "label": "Logo (optionnel)" },
-      { "type": "url", "id": "link", "label": "Lien" }
+      { "type": "image_picker", "id": "image", "label": "Logo de la ligue" },
+      { "type": "url", "id": "link", "label": "Lien (collection de la ligue)" },
+      { "type": "checkbox", "id": "show_name", "label": "Afficher le nom sous le logo", "default": true }
     ]}
   ],
   "presets": [ { "name": "KetShop — Ligues", "blocks": [
@@ -38,7 +54,7 @@
     { "type": "league", "settings": { "label": "Premier League" } },
     { "type": "league", "settings": { "label": "Bundesliga" } },
     { "type": "league", "settings": { "label": "Serie A" } },
-    { "type": "league", "settings": { "label": "FIFA" } }
+    { "type": "league", "settings": { "label": "Coupe du monde" } }
   ]}]
 }
 {% endschema %}
