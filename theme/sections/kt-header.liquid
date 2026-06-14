@@ -13,7 +13,7 @@
 
     <a href="{{ routes.root_url }}" class="logo">
       {%- if section.settings.logo != blank -%}
-        <img src="{{ section.settings.logo | image_url: width: 240 }}" alt="{{ shop.name }}" style="max-height:46px;width:auto">
+        <img src="{{ section.settings.logo | image_url: width: 600 }}" alt="{{ shop.name }}" style="max-height:{{ section.settings.logo_height | default: 70 }}px;width:auto">
       {%- else -%}
         <span class="logo__mark">{{ section.settings.logo_text }}</span>
         <span class="logo__sub">{{ section.settings.logo_sub }}</span>
@@ -63,6 +63,7 @@
   "tag": "section",
   "settings": [
     { "type": "image_picker", "id": "logo", "label": "Logo (image, optionnel)" },
+    { "type": "range", "id": "logo_height", "label": "Hauteur du logo (px)", "min": 30, "max": 130, "step": 2, "default": 70, "unit": "px" },
     { "type": "text", "id": "logo_text", "label": "Texte du logo", "default": "KETSHOP" },
     { "type": "text", "id": "logo_sub", "label": "Sous-texte du logo", "default": "MAILLOT" },
     { "type": "link_list", "id": "menu", "label": "Menu de navigation" },
