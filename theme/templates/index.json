@@ -24,14 +24,21 @@
     },
     "hero": {
       "type": "kt-hero",
-      "settings": {
-        "image": "shopify://shop_images/psg-back-to-back-collection-300526_a95bf490-9634-4007-9174-474ac445417f.jpg",
-        "eyebrow": "ÉDITION LIMITÉE",
-        "heading": "Maillot Collector\nChampions d'Europe",
-        "overlay_text": "BACK\n2\nBACK",
-        "button_label": "Découvrir la collection",
-        "button_link": "shopify://collections/champion-deurope"
-      }
+      "settings": { "speed": 5 },
+      "blocks": {
+        "slide1": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/psg-back-to-back-collection-300526_a95bf490-9634-4007-9174-474ac445417f.jpg",
+            "eyebrow": "ÉDITION LIMITÉE",
+            "heading": "Maillot Collector\nChampions d'Europe",
+            "overlay_text": "BACK\n2\nBACK",
+            "button_label": "Découvrir la collection",
+            "button_link": "shopify://collections/champion-deurope"
+          }
+        }
+      },
+      "block_order": ["slide1"]
     },
     "leagues": {
       "type": "kt-leagues",
