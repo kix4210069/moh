@@ -2,9 +2,9 @@
 <style>
 .leagues{display:flex;flex-wrap:wrap;justify-content:center;gap:1.6rem 2rem;padding:.8rem 0 1rem}
 .kt-league{flex:1 1 130px;max-width:180px;display:flex;flex-direction:column;align-items:center;gap:.7rem;text-decoration:none;color:inherit}
-.kt-league__logo{width:100%;max-width:150px;aspect-ratio:1;border-radius:50%;background:#fff;border:1px solid var(--grey-2);display:grid;place-items:center;overflow:hidden;font-weight:800;font-size:1rem;color:#333;text-align:center;padding:12px;transition:transform .15s,box-shadow .2s,border-color .2s}
+.kt-league__logo{width:100%;max-width:160px;aspect-ratio:1;border-radius:12px;background:#fff;border:1px solid var(--grey-2);display:grid;place-items:center;overflow:hidden;font-weight:800;font-size:1rem;color:#333;text-align:center;transition:transform .15s,box-shadow .2s,border-color .2s}
 .kt-league:hover .kt-league__logo{transform:translateY(-5px);box-shadow:0 14px 30px rgba(0,0,0,.15);border-color:var(--red)}
-.kt-league__logo img{width:100%;height:100%;object-fit:contain}
+.kt-league__logo img{width:100%;height:100%;object-fit:cover}
 .kt-league__name{font-size:.88rem;font-weight:600;text-align:center;line-height:1.2}
 .kt-league:hover .kt-league__name{color:var(--red)}
 .dark-strip .kt-league__name{color:#eee}
@@ -20,7 +20,7 @@
         <a class="kt-league" href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>
           <span class="kt-league__logo">
             {%- if block.settings.image != blank -%}
-              <img src="{{ block.settings.image | image_url: width: 180 }}" alt="{{ block.settings.label | escape }}" loading="lazy">
+              <img src="{{ block.settings.image | image_url: width: 400 }}" alt="{{ block.settings.label | escape }}" loading="lazy">
             {%- else -%}
               {{ block.settings.label }}
             {%- endif -%}
