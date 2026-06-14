@@ -3,7 +3,7 @@
   if (window.__ktDrawer) return;
   window.__ktDrawer = true;
 
-  var FREE_SHIP = (window.KT_FREESHIP_CENTS || 6000); // 60 € by default
+  var FREE_SHIP = 0; // livraison gratuite pour tous
   var fmt = function (cents) { return '€' + (cents / 100).toFixed(2).replace('.', ','); };
 
   /* ---- Build drawer DOM ---- */

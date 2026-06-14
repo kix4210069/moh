@@ -21,7 +21,7 @@
       "type": "kt-cart",
       "settings": {
         "heading": "Mon panier",
-        "free_ship_eur": 60,
+        "free_ship_eur": 0,
         "show_note": true,
         "re1": "Paiement 100% sécurisé",
         "re2": "Retours faciles sous 30 jours",
