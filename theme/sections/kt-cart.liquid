@@ -15,19 +15,9 @@
       </div>
     {%- else -%}
 
-      {%- assign thr = section.settings.free_ship_eur | times: 100 -%}
-      {%- assign remaining = thr | minus: cart.total_price -%}
       <div class="kt-ship">
-        <div class="kt-ship__text">
-          {%- if remaining > 0 -%}
-            Plus que <b>{{ remaining | money }}</b> pour la <b>livraison offerte</b> 🚚
-            {%- assign pct = cart.total_price | times: 100 | divided_by: thr -%}
-          {%- else -%}
-            🎉 Bravo ! Vous bénéficiez de la <b>livraison offerte</b>
-            {%- assign pct = 100 -%}
-          {%- endif -%}
-        </div>
-        <div class="kt-ship__track"><div class="kt-ship__fill" style="width: {{ pct }}%"></div></div>
+        <div class="kt-ship__text">🎉 <b>Livraison offerte</b> sur toute la commande 🚚</div>
+        <div class="kt-ship__track"><div class="kt-ship__fill" style="width: 100%"></div></div>
       </div>
 
       <form action="{{ routes.cart_url }}" method="post" id="kt-cart-form">
@@ -81,7 +71,7 @@
               <div class="kt-summary__row"><span>Réductions</span><span>− {{ cart.total_discount | money }}</span></div>
             {%- endif -%}
             <div class="kt-summary__total"><span>Total</span><span>{{ cart.total_price | money }}</span></div>
-            <p class="kt-summary__taxes">Taxes et frais de livraison calculés à l'étape suivante.</p>
+            <p class="kt-summary__taxes">Livraison offerte · Taxes calculées à l'étape suivante.</p>
 
             <button type="submit" name="checkout" class="kt-checkout">Commander</button>
             <div class="additional-checkout-buttons">{{ content_for_additional_checkout_buttons }}</div>
