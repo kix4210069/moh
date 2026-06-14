@@ -1,7 +1,7 @@
 {{ 'kt-home.css' | asset_url | stylesheet_tag }}
 <div class="kt" data-kt-section>
   <section class="feature {% if section.settings.reverse %}feature--reverse{% endif %}">
-    <div class="feature__img" {% if section.settings.image != blank %}style="background-image:url('{{ section.settings.image | image_url: width: 1400 }}')"{% endif %}></div>
+    <div class="feature__img" {% if section.settings.image != blank %}style="background-image:url('{{ section.settings.image | image_url: width: 1400 }}');background-size:{{ section.settings.image_fit | default: 'cover' }};background-repeat:no-repeat;background-position:center"{% endif %}></div>
     <div class="feature__text">
       {%- if section.settings.eyebrow != blank -%}<p class="eyebrow red">{{ section.settings.eyebrow }}</p>{%- endif -%}
       <h3>{{ section.settings.heading | newline_to_br }}</h3>
@@ -19,6 +19,7 @@
   "tag": "section",
   "settings": [
     { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "select", "id": "image_fit", "label": "Ajustement de l'image", "options": [ { "value": "cover", "label": "Remplir (recadrée)" }, { "value": "contain", "label": "Image entière (non recadrée)" } ], "default": "cover" },
     { "type": "checkbox", "id": "reverse", "label": "Inverser (texte à gauche)", "default": false },
     { "type": "text", "id": "eyebrow", "label": "Sur-titre" },
     { "type": "textarea", "id": "heading", "label": "Titre", "default": "Maillot Real Madrid Domicile\n2026/2027" },
