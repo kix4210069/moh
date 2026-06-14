@@ -15,8 +15,7 @@
       {%- if section.settings.logo != blank -%}
         <img src="{{ section.settings.logo | image_url: width: 600 }}" alt="{{ shop.name }}" style="max-height:{{ section.settings.logo_height | default: 70 }}px;width:auto">
       {%- else -%}
-        <span class="logo__mark">{{ section.settings.logo_text }}</span>
-        <span class="logo__sub">{{ section.settings.logo_sub }}</span>
+        <img src="https://cdn.shopify.com/s/files/1/1020/3948/6807/files/ChatGPT_Image_11_mars_2026_22_57_45_77d46329-8e12-4508-a068-41afd3b4df5c.png" alt="{{ shop.name }}" style="max-height:{{ section.settings.logo_height | default: 70 }}px;width:auto">
       {%- endif -%}
     </a>
 
