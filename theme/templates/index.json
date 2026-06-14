@@ -36,9 +36,31 @@
             "button_label": "Découvrir la collection",
             "button_link": "shopify://collections/champion-deurope"
           }
+        },
+        "slide2": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/camiseta-nike-vfl-wolfsburg-primera-equipacion-2025-2026-green-1_1.webp",
+            "eyebrow": "NOUVEAUTÉ",
+            "heading": "Saison 2025/2026",
+            "overlay_text": "",
+            "button_label": "Voir les nouveautés",
+            "button_link": "shopify://collections/saison-2025-2026"
+          }
+        },
+        "slide3": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Maillot-Uruguay-Exterieur-Coupe-du-Monde-2026-1.webp",
+            "eyebrow": "COUPE DU MONDE",
+            "heading": "CDM 2026",
+            "overlay_text": "",
+            "button_label": "Découvrir la CDM",
+            "button_link": "shopify://collections/coupe-du-monde"
+          }
         }
       },
-      "block_order": ["slide1"]
+      "block_order": ["slide1", "slide2", "slide3"]
     },
     "leagues": {
       "type": "kt-leagues",
