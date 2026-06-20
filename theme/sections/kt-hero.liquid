@@ -8,7 +8,7 @@
 @keyframes ktken{from{transform:scale(1.16)}to{transform:scale(1.02)}}
 .kt-hslide::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.62),rgba(0,0,0,.12))}
 .kt-hslide__content{position:relative;z-index:3;color:#fff;padding:0 clamp(1.5rem,6vw,5rem);max-width:700px}
-.kt-hslide__content h1{font-size:clamp(2rem,5.5vw,4rem);margin:.5rem 0 1.5rem}
+.kt-hslide__content h1,.kt-hslide__content .kt-hslide__title{font-size:clamp(2rem,5.5vw,4rem);margin:.5rem 0 1.5rem;font-weight:800;line-height:1.05}
 .kt-hslide .hero__overlay-text{z-index:2}
 .kt-hdots{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:6;display:flex;gap:.5rem}
 .kt-hdots button{width:10px;height:10px;border-radius:50%;border:none;background:rgba(255,255,255,.5);cursor:pointer;padding:0;transition:width .2s,background .2s}
@@ -25,7 +25,14 @@
         {%- if block.settings.overlay_text != blank -%}<div class="hero__overlay-text">{{ block.settings.overlay_text | newline_to_br }}</div>{%- endif -%}
         <div class="kt-hslide__content">
           {%- if block.settings.eyebrow != blank -%}<p class="eyebrow">{{ block.settings.eyebrow }}</p>{%- endif -%}
-          {%- if block.settings.heading != blank -%}<h1>{{ block.settings.heading | newline_to_br }}</h1>{%- endif -%}
+          {%- if block.settings.heading != blank -%}
+            {%- comment -%} Un seul H1 par page (SEO) : le 1er slide est le H1, les autres sont des titres visuels. {%- endcomment -%}
+            {%- if forloop.first -%}
+              <h1>{{ block.settings.heading | newline_to_br }}</h1>
+            {%- else -%}
+              <p class="kt-hslide__title">{{ block.settings.heading | newline_to_br }}</p>
+            {%- endif -%}
+          {%- endif -%}
           {%- if block.settings.button_label != blank -%}<a href="{{ block.settings.button_link }}" class="btn btn--primary">{{ block.settings.button_label }}</a>{%- endif -%}
         </div>
       </div>

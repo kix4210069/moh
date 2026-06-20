@@ -56,6 +56,41 @@
   </div>
 </aside>
 
+{%- comment -%} Données structurées SEO (rich results Google) — présentes sur toutes les pages {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": {{ shop.name | json }},
+  "url": {{ shop.url | append: '/' | json }},
+  "logo": {%- if section.settings.logo != blank -%}{{ section.settings.logo | image_url: width: 600 | prepend: 'https:' | json }}{%- else -%}"https://cdn.shopify.com/s/files/1/1020/3948/6807/files/ChatGPT_Image_11_mars_2026_22_57_45_77d46329-8e12-4508-a068-41afd3b4df5c.png"{%- endif -%},
+  "description": {{ shop.description | default: shop.name | json }}
+  {%- if section.settings.instagram != blank or section.settings.tiktok != blank -%}
+  ,"sameAs": [
+    {%- assign sep = '' -%}
+    {%- if section.settings.instagram != blank -%}{{ section.settings.instagram | json }}{%- assign sep = ',' -%}{%- endif -%}
+    {%- if section.settings.tiktok != blank -%}{{ sep }}{{ section.settings.tiktok | json }}{%- endif -%}
+  ]
+  {%- endif -%}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": {{ shop.name | json }},
+  "url": {{ shop.url | append: '/' | json }},
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "{{ shop.url }}/search?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
 {% schema %}
 {
   "name": "En-tête KetShop",
