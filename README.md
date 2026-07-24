@@ -1,24 +1,24 @@
-# KetShop Maillot — Page d'accueil
+# MAISON KM — L'Excellence Horlogère
 
-Reproduction statique de la page d'accueil de la boutique **KetShop Maillot**
-(maillots de football, crampons, training, rétro/vintage).
+Vitrine d'accueil pour **MAISON KM**, maison d'horlogerie de luxe française
+(chronographes, tourbillons, éditions limitées). Design inspiré des codes de la
+haute horlogerie : noir profond, or, ivoire et typographies serif élégantes.
 
 ## Aperçu
 
-Page d'accueil complète et responsive, fidèle à la maquette d'origine :
+Page d'accueil complète et responsive :
 
-- Barre d'annonce défilante (2 achetés = 3ème offert…)
-- Header noir avec logo, sélecteur pays/€, recherche, compte, panier
-- Hero « Maillot Collector Champions d'Europe — BACK 2 BACK »
-- Carrousel « Toutes les ligues »
-- Sections produits : Nos maillots du moment, Saison 2025/2026, CDM 2026,
-  Concept, Kits enfants, Rétro/Vintage, Crampons, Training été
-- Bannière promo avec **compte à rebours** dynamique
-- Bannières mises en avant (Real Madrid, BACK 2 BACK)
-- Bloc statistiques « Passionnés de foot depuis 2018 »
-- Top maillots du moment
-- Avis clients (4.8/5) + FAQ en accordéon
-- Footer complet : newsletter, moyens de paiement, mentions légales
+- Barre d'annonce défilante (livraison offerte, paiement sécurisé, éditions limitées)
+- Header sombre : navigation, logo MAISON KM, recherche, compte, panier
+- Hero « L'Excellence Horlogère » avec appels à l'action
+- Bandeau de valeurs (assemblage main, édition limitée, garantie, écrin offert)
+- Collections **S-Limited** et **Signature**
+- Grilles de montres (cadrans SVG paramétrables), badges et notes
+- Bannière « Limitée à 300 pièces » avec **compte à rebours** dynamique
+- Section **Savoir-faire** en 4 étapes
+- Bloc statistiques, avis clients (4.8/5) et FAQ en accordéon
+- Newsletter « Cercle Maison KM »
+- Footer complet + **panier latéral (drawer)** fonctionnel (localStorage)
 
 ## Technique
 
@@ -26,16 +26,15 @@ Site statique **sans build** : HTML + CSS + JavaScript vanilla.
 
 ```
 index.html            # structure de la page
-assets/css/style.css  # styles + responsive
-assets/js/main.js     # produits, carrousels, compte à rebours, menu mobile
+assets/css/style.css  # styles + responsive (thème horlogerie de luxe)
+assets/js/main.js      # catalogue, montres SVG, panier, compte à rebours, FAQ
 ```
 
-Les visuels produits sont des **placeholders SVG colorés** (maillots) prêts à
-être remplacés par les vraies photos.
+Les visuels des montres sont des **placeholders SVG** (cadran, index, aiguilles,
+sous-cadrans) générés en JavaScript et prêts à être remplacés par de vraies
+photos produit.
 
 ## Lancer en local
-
-Ouvrir simplement `index.html` dans un navigateur, ou servir le dossier :
 
 ```bash
 python3 -m http.server 8000
@@ -44,6 +43,11 @@ python3 -m http.server 8000
 
 ## Personnalisation
 
-- Couleurs et thème : variables CSS en haut de `assets/css/style.css`
-- Catalogue produits : objet `data` dans `assets/js/main.js`
-- Remplacer les placeholders SVG par de vraies images dans `cardHTML()`
+- **Nom de marque** : rechercher `MAISON KM` / `Maison KM` dans `index.html`
+  (logo header, footer, titres) pour l'adapter.
+- **Couleurs & thème** : variables CSS en haut de `assets/css/style.css`
+  (`--gold`, `--ink`, `--cream`…).
+- **Catalogue** : objet `CATALOG` dans `assets/js/main.js` (nom, référence,
+  prix, couleur du cadran, note).
+- **Photos réelles** : remplacer l'appel `watch(...)` dans `cardHTML()` par une
+  balise `<img>` pointant vers vos visuels.
