@@ -64,29 +64,37 @@ function box(lining = "#3f7d92", shell = "#20242a") {
   </svg>`;
 }
 
+/* ---------- Photo produit (avec SVG de repli) ----------
+   Déposez vos images dans  assets/images/  au nom indiqué (champ `image`).
+   Tant que le fichier n'existe pas, le SVG de repli s'affiche.            */
+function media(image, alt, placeholder) {
+  return `<img class="pmedia" src="assets/images/${image}" alt="${alt}" loading="lazy" onerror="this.style.display='none'" />
+          <div class="pmedia__ph">${placeholder}</div>`;
+}
+
 /* ---------- Données ---------- */
 const COLLECTIONS = [
-  { n: "Collection Signature", num: "01 — Ligne", desc: "Le style intemporel, épuré et élégant.", from: 289.99, dial: "#16171b", ring: "#c9cbd1", accent: "#e6e7ea" },
-  { n: "Collection S-Limited", num: "02 — Ligne", desc: "L'ultra-exclusif. Pour ceux qui veulent ce que personne ne peut avoir.", from: 329.99, dial: "#101216", ring: "#4a4d55", accent: "#aeb2ba" },
-  { n: "Collection Velatura", num: "03 — Ligne", desc: "Légèreté et performance, inspirées par le textile technique et l'univers sportif.", from: 299.99, dial: "#0f1a1f", ring: "#3f7d92", accent: "#8fc7d6" },
+  { n: "Collection Signature", short: "Signature", num: "01 — Ligne", image: "collection-signature.jpg", desc: "Le style intemporel, épuré et élégant.", from: 289.99, dial: "#16171b", ring: "#c9cbd1", accent: "#e6e7ea" },
+  { n: "Collection S-Limited", short: "S-Limited", num: "02 — Ligne", image: "collection-s-limited.jpg", desc: "L'ultra-exclusif. Pour ceux qui veulent ce que personne ne peut avoir.", from: 329.99, dial: "#101216", ring: "#4a4d55", accent: "#aeb2ba" },
+  { n: "Collection Velatura", short: "Velatura", num: "03 — Ligne", image: "collection-velatura.jpg", desc: "Légèreté et performance, inspirées par le textile technique et l'univers sportif.", from: 299.99, dial: "#0f1a1f", ring: "#3f7d92", accent: "#8fc7d6" },
 ];
 
 const MONTRES = [
-  { name: "KM 4402D — Onyx", ref: "S-4402D", price: 329.99, dial: "#141416", ring: "#2f3136", accent: "#b9bcc4" },
-  { name: "KM 8806D — Aster", ref: "S-8806D-A", price: 289.99, dial: "#101a1e", ring: "#3f7d92", accent: "#7fc3d4", variants: 2 },
-  { name: "KM 8806D — Phantom", ref: "S-8806D-P", price: 289.99, dial: "#0f0f12", ring: "#26272c", accent: "#8a8d95" },
-  { name: "KM 8169A — Argentum Frosted", ref: "KM-8169A", price: 349.99, dial: "#20222a", ring: "#d7dae0", accent: "#eef0f3" },
-  { name: "KM 8806D — Phantom Canvas", ref: "S-8806D-PC", price: 299.99, dial: "#161311", ring: "#5a4e3c", accent: "#c8b38a" },
-  { name: "KM 8891D — Onyx Rubber", ref: "S-8891D", price: 329.99, dial: "#0e0e10", ring: "#33353b", accent: "#a7abb3" },
-  { name: "KM 8890D — Glacier Rubber", ref: "S-8890D", price: 289.99, dial: "#0d1720", ring: "#3d6f9c", accent: "#8fb9df" },
-  { name: "KM 8831D — Snow Canvas", ref: "S-8831D", price: 329.99, dial: "#1c1e22", ring: "#e2e4e8", accent: "#f2f3f5" },
+  { name: "KM 4402D — Onyx", ref: "S-4402D", image: "km-4402d-onyx.jpg", price: 329.99, dial: "#141416", ring: "#2f3136", accent: "#b9bcc4" },
+  { name: "KM 8806D — Aster", ref: "S-8806D-A", image: "km-8806d-aster.jpg", price: 289.99, dial: "#101a1e", ring: "#3f7d92", accent: "#7fc3d4", variants: 2 },
+  { name: "KM 8806D — Phantom", ref: "S-8806D-P", image: "km-8806d-phantom.jpg", price: 289.99, dial: "#0f0f12", ring: "#26272c", accent: "#8a8d95" },
+  { name: "KM 8169A — Argentum Frosted", ref: "KM-8169A", image: "km-8169a-argentum-frosted.jpg", price: 349.99, dial: "#20222a", ring: "#d7dae0", accent: "#eef0f3" },
+  { name: "KM 8806D — Phantom Canvas", ref: "S-8806D-PC", image: "km-8806d-phantom-canvas.jpg", price: 299.99, dial: "#161311", ring: "#5a4e3c", accent: "#c8b38a" },
+  { name: "KM 8891D — Onyx Rubber", ref: "S-8891D", image: "km-8891d-onyx-rubber.jpg", price: 329.99, dial: "#0e0e10", ring: "#33353b", accent: "#a7abb3" },
+  { name: "KM 8890D — Glacier Rubber", ref: "S-8890D", image: "km-8890d-glacier-rubber.jpg", price: 289.99, dial: "#0d1720", ring: "#3d6f9c", accent: "#8fb9df" },
+  { name: "KM 8831D — Snow Canvas", ref: "S-8831D", image: "km-8831d-snow-canvas.jpg", price: 329.99, dial: "#1c1e22", ring: "#e2e4e8", accent: "#f2f3f5" },
 ];
 
 const ACCESSOIRES = [
-  { name: "Coffret 8-12 berceaux horlogers KM", ref: "coffret-8-12-berceaux-horlogers-km", price: 350.00, lining: "#4aa8c4", shell: "#e9edf0" },
-  { name: "Coffret 3 berceaux horlogers KM", ref: "coffret-3-berceaux-horlogers-km", price: 150.00, lining: "#5a6b58", shell: "#1c3a2a" },
-  { name: "Coffret 5 berceaux horlogers KM", ref: "coffret-5-berceaux-horlogers-km", price: 200.00, lining: "#4aa8c4", shell: "#16181c" },
-  { name: "Coffret 8 berceaux horlogers KM", ref: "coffret-8-berceaux-horlogers-km", price: 400.00, lining: "#5bb6d0", shell: "#20242a" },
+  { name: "Coffret 8-12 berceaux horlogers KM", ref: "coffret-8-12-berceaux-horlogers-km", image: "coffret-8-12-berceaux.jpg", price: 350.00, lining: "#4aa8c4", shell: "#e9edf0" },
+  { name: "Coffret 3 berceaux horlogers KM", ref: "coffret-3-berceaux-horlogers-km", image: "coffret-3-berceaux.jpg", price: 150.00, lining: "#5a6b58", shell: "#1c3a2a" },
+  { name: "Coffret 5 berceaux horlogers KM", ref: "coffret-5-berceaux-horlogers-km", image: "coffret-5-berceaux.jpg", price: 200.00, lining: "#4aa8c4", shell: "#16181c" },
+  { name: "Coffret 8 berceaux horlogers KM", ref: "coffret-8-berceaux-horlogers-km", image: "coffret-8-berceaux.jpg", price: 400.00, lining: "#5bb6d0", shell: "#20242a" },
 ];
 
 /* ---------- Rendu : collections ---------- */
@@ -94,11 +102,11 @@ const collTrack = $("#collTrack");
 if (collTrack) collTrack.innerHTML = COLLECTIONS.map(c => `
   <a class="coll" href="#montres">
     <div class="coll__media">
-      ${watch(c.dial, c.ring, "#1c1e22", c.accent)}
-      <span class="coll__line">${c.num}</span>
-      <span class="coll__name">${c.n.replace("Collection ", "")}</span>
+      ${media(c.image, c.n, watch(c.dial, c.ring, "#1c1e22", c.accent))}
     </div>
     <div class="coll__body">
+      <span class="coll__line">${c.num}</span>
+      <h3 class="coll__name">${c.short}</h3>
       <p class="coll__desc">${c.desc}</p>
       <p class="coll__from">À partir de ${eur(c.from)}</p>
       <span class="coll__link">Découvrez →</span>
@@ -116,13 +124,13 @@ if (collTrack) collTrack.innerHTML = COLLECTIONS.map(c => `
 
 /* ---------- Rendu : montres ---------- */
 function productCard(p, type) {
-  const media = type === "box" ? box(p.lining, p.shell) : watch(p.dial, p.ring, "#1c1e22", p.accent);
+  const ph = type === "box" ? box(p.lining, p.shell) : watch(p.dial, p.ring, "#1c1e22", p.accent);
   const data = encodeURIComponent(JSON.stringify({ name: p.name, ref: p.ref, price: p.price, type, ...p }));
   return `
   <article class="card">
     <div class="card__media">
+      ${media(p.image, p.name, ph)}
       ${p.variants ? `<span class="card__variants">${p.variants} variantes</span>` : ""}
-      ${media}
       <button class="card__add" data-add="${data}">
         <svg viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>Ajouter
       </button>
@@ -151,7 +159,7 @@ function renderCart() {
   if (!CART.items.length) { box2.innerHTML = `<div class="drawer__empty">Votre panier est vide.<br>Découvrez nos créations.</div>`; return; }
   box2.innerHTML = CART.items.map((it, i) => `
     <div class="d-item">
-      <div class="d-item__media">${it.type === "box" ? box(it.lining, it.shell) : watch(it.dial, it.ring, "#1c1e22", it.accent)}</div>
+      <div class="d-item__media">${media(it.image, it.name, it.type === "box" ? box(it.lining, it.shell) : watch(it.dial, it.ring, "#1c1e22", it.accent))}</div>
       <div class="d-item__info">
         <div class="d-item__name">${it.name}</div>
         <div class="d-item__ref">${it.ref}</div>
