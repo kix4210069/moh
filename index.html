@@ -3,301 +3,196 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MAISON KM — L'Excellence Horlogère</title>
-  <meta name="description" content="MAISON KM — Maison d'horlogerie française. Chronographes et tourbillons d'exception, éditions limitées à 300 pièces. Élégance, précision et savoir-faire." />
+  <title>MAISON KM — Haute Horlogerie</title>
+  <meta name="description" content="MAISON KM — Créer l'exception. Porter la différence. Montres d'exception, collections Signature, S-Limited et Velatura. 100% authentique, garantie 2 ans." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
 
   <!-- ===== Barre d'annonce ===== -->
   <div class="announce">
-    <div class="announce__track" id="announceTrack">
-      <span>Livraison offerte dans le monde entier</span><span class="dot">◆</span>
-      <span>Paiement 100&nbsp;% sécurisé</span><span class="dot">◆</span>
-      <span>Éditions limitées à 300 pièces</span><span class="dot">◆</span>
-      <span>Garantie 2 ans · Écrin offert</span><span class="dot">◆</span>
+    <div class="announce__track">
+      <span>100% AUTHENTIQUE · GARANTIE 2 ANS</span><i></i>
+      <span>100% AUTHENTIQUE · GARANTIE 2 ANS</span><i></i>
+      <span>100% AUTHENTIQUE · GARANTIE 2 ANS</span><i></i>
+      <span>100% AUTHENTIQUE · GARANTIE 2 ANS</span><i></i>
+      <span>100% AUTHENTIQUE · GARANTIE 2 ANS</span><i></i>
+      <span>100% AUTHENTIQUE · GARANTIE 2 ANS</span><i></i>
     </div>
   </div>
 
   <!-- ===== Header ===== -->
   <header class="header" id="header">
     <div class="header__inner">
-      <button class="icon-btn burger" id="burger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+      <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
 
       <nav class="nav nav--left">
         <a href="#collections">Collections</a>
-        <a href="#s-limited">S-Limited</a>
-        <a href="#signature">Signature</a>
+        <a href="#montres">Montres</a>
+        <a href="#accessoires">Accessoires</a>
+        <a href="#collections" class="nav__hot">🔥 Précommande</a>
       </nav>
 
-      <a href="#" class="brand" aria-label="Maison KM — accueil">
-        <span class="brand__maison">MAISON</span>
-        <span class="brand__name">KM</span>
+      <a href="#" class="brand" aria-label="Maison KM">
+        <span class="brand__word">MAISON</span>
+        <span class="brand__word brand__word--2">KM</span>
       </a>
-
-      <nav class="nav nav--right">
-        <a href="#savoir-faire">Savoir-Faire</a>
-        <a href="#avis">Avis</a>
-        <a href="#contact">Contact</a>
-      </nav>
 
       <div class="header__icons">
         <button class="icon-btn" id="searchBtn" aria-label="Rechercher">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
         </button>
         <button class="icon-btn" aria-label="Compte">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
         </button>
         <button class="icon-btn cart-btn" id="cartBtn" aria-label="Panier">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
           <span class="cart-count" id="cartCount">0</span>
         </button>
       </div>
     </div>
 
-    <!-- barre de recherche -->
     <div class="searchbar" id="searchbar">
       <div class="searchbar__inner">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
         <input type="search" id="searchInput" placeholder="Rechercher une montre, une collection…" />
         <button class="icon-btn" id="searchClose" aria-label="Fermer">✕</button>
       </div>
     </div>
   </header>
 
-  <!-- menu mobile -->
   <div class="mobile-menu" id="mobileMenu">
     <a href="#collections">Collections</a>
-    <a href="#s-limited">S-Limited</a>
-    <a href="#signature">Signature</a>
-    <a href="#savoir-faire">Savoir-Faire</a>
-    <a href="#avis">Avis</a>
-    <a href="#contact">Contact</a>
+    <a href="#montres">Montres</a>
+    <a href="#accessoires">Accessoires</a>
+    <a href="#collections">🔥 Précommande</a>
   </div>
 
   <!-- ===== Hero ===== -->
   <section class="hero">
     <div class="hero__bg"></div>
-    <div class="hero__overlay"></div>
+    <div class="hero__veil"></div>
     <div class="hero__content">
-      <p class="hero__eyebrow">Maison d'horlogerie française · depuis 2019</p>
-      <h1 class="hero__title">L'Excellence<br />Horlogère</h1>
-      <p class="hero__sub">Chronographes et tourbillons d'exception, façonnés à la main.<br />Chaque garde-temps, une signature du temps.</p>
-      <div class="hero__actions">
-        <a href="#collections" class="btn btn--gold">Découvrir les collections</a>
-        <a href="#signature" class="btn btn--ghost">La collection Signature</a>
-      </div>
+      <h1 class="hero__title">MAISON KM</h1>
+      <p class="hero__sub">Créer l'exception. Porter la différence.</p>
+      <a href="#collections" class="btn btn--outline">Découvrez nos créations</a>
     </div>
-    <div class="hero__scroll">Défiler <span>↓</span></div>
   </section>
 
-  <!-- ===== Bandeau valeurs ===== -->
-  <section class="values">
-    <div class="values__item"><span class="values__ico">✦</span><div><strong>Assemblé à la main</strong><em>Chaque mouvement révisé pièce à pièce</em></div></div>
-    <div class="values__item"><span class="values__ico">◈</span><div><strong>Édition limitée</strong><em>300 exemplaires, jamais rééditée</em></div></div>
-    <div class="values__item"><span class="values__ico">❖</span><div><strong>Garantie 2 ans</strong><em>Service après-vente en France</em></div></div>
-    <div class="values__item"><span class="values__ico">✧</span><div><strong>Écrin offert</strong><em>Livraison assurée dans le monde entier</em></div></div>
+  <!-- ===== Notre approche ===== -->
+  <section class="approach">
+    <p class="eyebrow">Notre approche</p>
+    <h2 class="approach__title">Entre l'ordinaire et le remarquable,<br /><em>il n'y a qu'un poignet.</em></h2>
+    <p class="approach__text">Nous sélectionnons chaque pièce une à une, en pensant à celles et ceux qui la porteront.<br />Pour qu'elle dure, et qu'elle vous ressemble.</p>
+    <span class="divider"></span>
   </section>
 
   <!-- ===== Collections ===== -->
   <section class="section" id="collections">
     <div class="section__head">
-      <p class="eyebrow">Nos univers</p>
-      <h2 class="section__title">Les Collections</h2>
-      <p class="section__lead">Deux expressions d'un même art : la mesure du temps portée à son sommet.</p>
+      <p class="eyebrow">Nos collections</p>
+      <h2 class="section__title">Trouvez la vôtre</h2>
+      <p class="section__lead">Chaque collection a son tempérament. Trouvez celle qui répond à la vôtre.</p>
+      <span class="divider"></span>
+      <a href="#montres" class="see-all see-all--float">Voir tous les modèles →</a>
     </div>
-    <div class="collections">
-      <a href="#s-limited" class="collection">
-        <div class="collection__media" data-dial="#1c2b3a" data-accent="#9db7cf"></div>
-        <div class="collection__body">
-          <span class="collection__tag">Essentiel</span>
-          <h3>Collection S-Limited</h3>
-          <p>Le style Maison KM à l'état pur — intemporel, épuré, classique.</p>
-          <span class="link-arrow">Explorer la collection →</span>
-        </div>
-      </a>
-      <a href="#signature" class="collection">
-        <div class="collection__media" data-dial="#2a1f14" data-accent="#c9a86a"></div>
-        <div class="collection__body">
-          <span class="collection__tag">Exclusivité</span>
-          <h3>Collection Signature</h3>
-          <p>Limitée à 300 pièces dans le monde. Numérotée. Jamais rééditée.</p>
-          <span class="link-arrow">Explorer la collection →</span>
-        </div>
-      </a>
+
+    <div class="carousel" id="collCarousel">
+      <button class="carousel__arrow carousel__arrow--prev" id="collPrev" aria-label="Précédent">‹</button>
+      <div class="carousel__track" id="collTrack"></div>
+      <button class="carousel__arrow carousel__arrow--next" id="collNext" aria-label="Suivant">›</button>
     </div>
   </section>
 
-  <!-- ===== S-Limited (grille produits) ===== -->
-  <section class="section section--soft" id="s-limited">
+  <!-- ===== Les montres ===== -->
+  <section class="section section--alt" id="montres">
     <div class="section__head">
-      <p class="eyebrow">Collection S-Limited</p>
-      <h2 class="section__title">Timeless &amp; Essentiel</h2>
-      <p class="section__lead">Des pièces pensées pour marquer le temps — et les esprits.</p>
+      <p class="eyebrow">Notre sélection</p>
+      <h2 class="section__title">Les Montres</h2>
+      <p class="section__lead">Des pièces pensées pour traverser les saisons, sans jamais se démoder.</p>
+      <span class="divider"></span>
+      <a href="#" class="see-all see-all--float">Voir toutes les montres →</a>
     </div>
-    <div class="grid" id="gridSLimited"></div>
+    <div class="grid" id="gridMontres"></div>
   </section>
 
-  <!-- ===== Bannière Signature ===== -->
-  <section class="banner" id="signature">
-    <div class="banner__bg"></div>
-    <div class="banner__overlay"></div>
-    <div class="banner__content">
-      <p class="eyebrow eyebrow--gold">Collection Signature</p>
-      <h2 class="banner__title">Limitée à 300 pièces<br />dans le monde entier</h2>
-      <p class="banner__text">Chaque création Signature est numérotée à la main et livrée avec son certificat d'authenticité. Une fois les 300 exemplaires écoulés, le modèle n'est jamais réédité.</p>
-      <a href="#gridSignature" class="btn btn--gold">Voir les modèles Signature</a>
-      <div class="banner__counter">
-        <span class="banner__counter-label">Fin de l'édition en cours</span>
-        <div class="countdown" id="countdown">
-          <div><b id="cdD">00</b><i>jours</i></div>
-          <div><b id="cdH">00</b><i>heures</i></div>
-          <div><b id="cdM">00</b><i>min</i></div>
-          <div><b id="cdS">00</b><i>sec</i></div>
-        </div>
-      </div>
+  <!-- ===== Réassurance ===== -->
+  <section class="assure">
+    <div class="assure__item">
+      <span class="assure__ico">✓</span>
+      <div><strong>Sélection rigoureuse</strong><em>Chaque pièce passe entre nos mains avant de partir.</em></div>
+    </div>
+    <div class="assure__item">
+      <span class="assure__ico">✈</span>
+      <div><strong>Livraison soignée</strong><em>Expédition suivie, écrin inclus, partout dans le monde.</em></div>
+    </div>
+    <div class="assure__item">
+      <span class="assure__ico">✆</span>
+      <div><strong>Conseil direct</strong><em>Notre équipe vous répond sur WhatsApp, à chaque étape.</em></div>
     </div>
   </section>
 
-  <!-- ===== Signature (grille produits) ===== -->
-  <section class="section">
-    <div class="section__head" id="gridSignature">
-      <h2 class="section__title">Les Garde-Temps Signature</h2>
-      <p class="section__lead">Numérotés de 001 à 300. Sélection du moment.</p>
-    </div>
-    <div class="grid" id="gridSignatureItems"></div>
-  </section>
-
-  <!-- ===== Savoir-faire ===== -->
-  <section class="craft" id="savoir-faire">
-    <div class="craft__head">
-      <p class="eyebrow eyebrow--gold">Savoir-faire</p>
-      <h2 class="section__title section__title--light">L'art de la mesure du temps</h2>
-    </div>
-    <div class="craft__steps">
-      <div class="craft__step"><span class="craft__num">01</span><h3>Conception</h3><p>Chaque cadran est dessiné à Paris, puis affiné jusqu'à l'équilibre parfait des proportions.</p></div>
-      <div class="craft__step"><span class="craft__num">02</span><h3>Assemblage</h3><p>Le mouvement est monté et réglé à la main par nos horlogers, pièce par pièce.</p></div>
-      <div class="craft__step"><span class="craft__num">03</span><h3>Contrôle</h3><p>72 heures de tests de précision et d'étanchéité avant validation du garde-temps.</p></div>
-      <div class="craft__step"><span class="craft__num">04</span><h3>Numérotation</h3><p>Gravure du numéro d'édition et mise sous écrin, accompagné de son certificat.</p></div>
-    </div>
-  </section>
-
-  <!-- ===== Statistiques ===== -->
-  <section class="stats">
-    <div class="stats__item"><b>2019</b><span>Naissance de la Maison</span></div>
-    <div class="stats__item"><b>21</b><span>Modèles d'exception</span></div>
-    <div class="stats__item"><b>300</b><span>Pièces par édition</span></div>
-    <div class="stats__item"><b>4.8/5</b><span>Satisfaction client</span></div>
-  </section>
-
-  <!-- ===== Top ventes ===== -->
-  <section class="section section--soft">
+  <!-- ===== Accessoires ===== -->
+  <section class="section" id="accessoires">
     <div class="section__head">
-      <p class="eyebrow">Plébiscitées</p>
-      <h2 class="section__title">Les plus convoitées</h2>
+      <p class="eyebrow">Au détail près</p>
+      <h2 class="section__title">Accessoires</h2>
+      <p class="section__lead">Bracelets, écrins et finitions — pour prolonger le geste, jusqu'au moindre détail.</p>
+      <span class="divider"></span>
+      <a href="#" class="see-all see-all--float">Voir tous les accessoires →</a>
     </div>
-    <div class="grid grid--top" id="gridTop"></div>
-  </section>
-
-  <!-- ===== Avis ===== -->
-  <section class="reviews" id="avis">
-    <div class="section__head">
-      <p class="eyebrow eyebrow--gold">Ils portent Maison KM</p>
-      <h2 class="section__title section__title--light">4.8 / 5 · plus de 1&nbsp;200 avis</h2>
-    </div>
-    <div class="reviews__grid" id="reviewsGrid"></div>
-  </section>
-
-  <!-- ===== FAQ ===== -->
-  <section class="section">
-    <div class="section__head">
-      <p class="eyebrow">Questions fréquentes</p>
-      <h2 class="section__title">Tout savoir avant de commander</h2>
-    </div>
-    <div class="faq" id="faq"></div>
-  </section>
-
-  <!-- ===== Newsletter ===== -->
-  <section class="news" id="contact">
-    <div class="news__inner">
-      <p class="eyebrow eyebrow--gold">Cercle Maison KM</p>
-      <h2>Rejoignez le cercle privé</h2>
-      <p class="news__text">Accès anticipé aux nouvelles éditions, invitations privées et offres réservées.</p>
-      <form class="news__form" id="newsForm">
-        <input type="email" placeholder="Votre adresse e-mail" required />
-        <button type="submit" class="btn btn--gold">S'inscrire</button>
-      </form>
-      <p class="news__note" id="newsNote"></p>
-    </div>
+    <div class="grid" id="gridAccessoires"></div>
   </section>
 
   <!-- ===== Footer ===== -->
   <footer class="footer">
-    <div class="footer__top">
-      <div class="footer__brand">
-        <div class="brand brand--footer"><span class="brand__maison">MAISON</span><span class="brand__name">KM</span></div>
-        <p>Maison d'horlogerie française. Chronographes et tourbillons d'exception, façonnés à la main et produits en éditions limitées.</p>
-        <div class="footer__social">
-          <a href="#" aria-label="Instagram">Instagram</a>
-          <a href="#" aria-label="Facebook">Facebook</a>
-          <a href="#" aria-label="Pinterest">Pinterest</a>
-        </div>
-      </div>
-      <div class="footer__col">
-        <h4>Collections</h4>
-        <a href="#s-limited">S-Limited</a>
-        <a href="#signature">Signature</a>
-        <a href="#collections">Toutes les montres</a>
-        <a href="#">Éditions numérotées</a>
-      </div>
-      <div class="footer__col">
-        <h4>La Maison</h4>
-        <a href="#savoir-faire">Savoir-faire</a>
-        <a href="#avis">Avis clients</a>
-        <a href="#">Notre histoire</a>
-        <a href="#contact">Nous contacter</a>
-      </div>
-      <div class="footer__col">
-        <h4>Aide</h4>
-        <a href="#faq">Livraison &amp; retours</a>
-        <a href="#">Garantie 2 ans</a>
-        <a href="#">Guide des tailles</a>
-        <a href="#">Suivi de commande</a>
-      </div>
-    </div>
-    <div class="footer__pay">
-      <span>Paiement 100&nbsp;% sécurisé</span>
-      <div class="footer__cards" id="payIcons"></div>
-    </div>
-    <div class="footer__legal">
-      <p>© <span id="year"></span> Maison KM. Tous droits réservés.</p>
-      <nav>
-        <a href="#">Mentions légales</a>
-        <a href="#">CGV</a>
-        <a href="#">Confidentialité</a>
-        <a href="#">Cookies</a>
-      </nav>
-    </div>
+    <a href="#" class="brand brand--footer" aria-label="Maison KM">
+      <span class="brand__word">MAISON</span><span class="brand__word">KM</span>
+    </a>
+    <nav class="footer__nav">
+      <a href="#">Confidentialité</a>
+      <a href="#">CGV</a>
+      <a href="#">Mentions légales</a>
+      <a href="#">Contact</a>
+      <a href="#">WhatsApp</a>
+    </nav>
+    <p class="footer__copy">© <span id="year"></span> Maison KM — Haute Horlogerie<br />Français · Tous droits réservés</p>
   </footer>
 
-  <!-- ===== Panier (drawer) ===== -->
+  <!-- ===== Boutons flottants ===== -->
+  <div class="floaters">
+    <a href="#" class="floater floater--wa" aria-label="WhatsApp" title="WhatsApp">
+      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2z"/><path d="M8.5 7.5c.3 0 .6 0 .8.6l.8 2c.1.2 0 .5-.1.7l-.5.6c-.2.2-.2.4 0 .7a7 7 0 0 0 3.1 2.7c.3.1.5.1.7-.1l.7-.8c.2-.2.4-.2.6-.1l1.9.9c.3.1.4.4.3.7-.2 1-1.3 1.8-2.3 1.8a8 8 0 0 1-7-7c0-1 .7-2 1.7-2.1z" fill="currentColor" stroke="none"/></svg>
+    </a>
+    <button class="floater floater--search" id="floatSearch" aria-label="Rechercher" title="Rechercher">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+    </button>
+  </div>
+
+  <!-- ===== Bandeau cookies ===== -->
+  <div class="cookies" id="cookies">
+    <p>🍪 <b>Cookies :</b> Nous utilisons des cookies pour améliorer votre expérience. <a href="#">Gérer</a></p>
+    <div class="cookies__btns">
+      <button class="btn btn--dark" id="cookieRefuse">Refuser</button>
+      <button class="btn btn--light" id="cookieAccept">Accepter</button>
+    </div>
+  </div>
+
+  <!-- ===== Panier ===== -->
   <div class="drawer-overlay" id="drawerOverlay"></div>
   <aside class="drawer" id="drawer" aria-hidden="true">
     <div class="drawer__head">
       <h3>Votre panier</h3>
       <button class="icon-btn" id="drawerClose" aria-label="Fermer">✕</button>
     </div>
-    <div class="drawer__ship">🚚 Livraison offerte dans le monde entier</div>
+    <div class="drawer__ship">Livraison suivie · écrin inclus · partout dans le monde</div>
     <div class="drawer__items" id="drawerItems"></div>
     <div class="drawer__foot">
-      <div class="drawer__total"><span>Total</span><b id="drawerTotal">0 €</b></div>
-      <button class="btn btn--gold btn--block">Passer la commande</button>
-      <p class="drawer__reassure">Paiement sécurisé · Écrin offert · Retour sous 30 jours</p>
+      <div class="drawer__total"><span>Total</span><b id="drawerTotal">0,00 €</b></div>
+      <button class="btn btn--light btn--block">Passer la commande</button>
     </div>
   </aside>
 

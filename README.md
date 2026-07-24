@@ -1,24 +1,20 @@
-# MAISON KM — L'Excellence Horlogère
+# MAISON KM — Haute Horlogerie
 
-Vitrine d'accueil pour **MAISON KM**, maison d'horlogerie de luxe française
-(chronographes, tourbillons, éditions limitées). Design inspiré des codes de la
-haute horlogerie : noir profond, or, ivoire et typographies serif élégantes.
+Reproduction fidèle de la page d'accueil type **Maison Signa** pour la marque
+**MAISON KM** : thème sombre, monochrome et minimaliste, typographies serif
+élégantes. *« Créer l'exception. Porter la différence. »*
 
-## Aperçu
+## Structure de la page
 
-Page d'accueil complète et responsive :
-
-- Barre d'annonce défilante (livraison offerte, paiement sécurisé, éditions limitées)
-- Header sombre : navigation, logo MAISON KM, recherche, compte, panier
-- Hero « L'Excellence Horlogère » avec appels à l'action
-- Bandeau de valeurs (assemblage main, édition limitée, garantie, écrin offert)
-- Collections **S-Limited** et **Signature**
-- Grilles de montres (cadrans SVG paramétrables), badges et notes
-- Bannière « Limitée à 300 pièces » avec **compte à rebours** dynamique
-- Section **Savoir-faire** en 4 étapes
-- Bloc statistiques, avis clients (4.8/5) et FAQ en accordéon
-- Newsletter « Cercle Maison KM »
-- Footer complet + **panier latéral (drawer)** fonctionnel (localStorage)
+- Bandeau défilant « 100% AUTHENTIQUE · GARANTIE 2 ANS »
+- Header : Collections · Montres · Accessoires · 🔥 Précommande / logo centré / recherche, compte, panier
+- Hero plein écran (macro montre) — **MAISON KM**
+- **Notre approche** — « Entre l'ordinaire et le remarquable, il n'y a qu'un poignet. »
+- **Nos collections / Trouvez la vôtre** — carrousel (Signature, S-Limited, Velatura)
+- **Notre sélection / Les Montres** — grille de 8 montres, bouton *Ajouter*
+- Bandeau réassurance (sélection rigoureuse · livraison soignée · conseil direct)
+- **Au détail près / Accessoires** — 4 coffrets horlogers
+- Footer minimal + boutons flottants WhatsApp / recherche + bandeau cookies
 
 ## Technique
 
@@ -26,28 +22,24 @@ Site statique **sans build** : HTML + CSS + JavaScript vanilla.
 
 ```
 index.html            # structure de la page
-assets/css/style.css  # styles + responsive (thème horlogerie de luxe)
-assets/js/main.js      # catalogue, montres SVG, panier, compte à rebours, FAQ
+assets/css/style.css  # thème sombre monochrome + responsive
+assets/js/main.js     # montres/coffrets SVG, carrousel, panier, cookies
 ```
 
-Les visuels des montres sont des **placeholders SVG** (cadran, index, aiguilles,
-sous-cadrans) générés en JavaScript et prêts à être remplacés par de vraies
-photos produit.
+Les visuels (montres à lunette octogonale, coffrets à berceaux) sont des
+**placeholders SVG** générés en JavaScript, prêts à être remplacés par de
+vraies photos produit.
 
 ## Lancer en local
 
 ```bash
-python3 -m http.server 8000
-# puis http://localhost:8000
+python3 -m http.server 8000     # puis http://localhost:8000
 ```
 
 ## Personnalisation
 
-- **Nom de marque** : rechercher `MAISON KM` / `Maison KM` dans `index.html`
-  (logo header, footer, titres) pour l'adapter.
-- **Couleurs & thème** : variables CSS en haut de `assets/css/style.css`
-  (`--gold`, `--ink`, `--cream`…).
-- **Catalogue** : objet `CATALOG` dans `assets/js/main.js` (nom, référence,
-  prix, couleur du cadran, note).
-- **Photos réelles** : remplacer l'appel `watch(...)` dans `cardHTML()` par une
-  balise `<img>` pointant vers vos visuels.
+- **Marque** : rechercher `MAISON KM` / `Maison KM` dans `index.html`.
+- **Couleurs** : variables CSS en haut de `assets/css/style.css`.
+- **Catalogue** : objets `COLLECTIONS`, `MONTRES`, `ACCESSOIRES` dans `main.js`.
+- **Photos réelles** : remplacer les appels `watch(...)` / `box(...)` par des
+  balises `<img>` dans `productCard()`.
