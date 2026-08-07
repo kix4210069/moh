@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
 <title>CRM Formation — Suivi des apprentis</title>
 <style>
   :root{
@@ -222,6 +221,48 @@
     .app,.drawer,.ov,.toast,.docview.on ~ *{display:none!important}
   }
   @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+  /* ---------- VITRINE ---------- */
+  .vit{min-height:100vh;display:flex;flex-direction:column;background:
+    radial-gradient(1100px 520px at 85% -8%, var(--brand-tint), transparent 60%), var(--bg)}
+  .vit-wrap{max-width:1140px;margin:0 auto;width:100%;padding:0 28px}
+  .vit-nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+  .vit-nav .brand b{font-size:16px;letter-spacing:-.01em;display:block;line-height:1.05}
+  .vit-nav .brand span{font-size:11px;color:var(--faint);font-family:var(--mono)}
+  .vit-hero{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center;padding:44px 0 46px}
+  .vit-hero h1{font-size:clamp(32px,5vw,46px);line-height:1.04;letter-spacing:-.03em;margin:12px 0 16px;text-wrap:balance}
+  .vit-hero p.lead{font-size:17px;color:var(--muted);max-width:52ch;margin:0 0 26px;line-height:1.55}
+  .vit-cta{display:flex;gap:12px;flex-wrap:wrap}
+  .btn.lg{padding:13px 22px;font-size:15px;border-radius:12px}
+  .vit-mock{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+  .vit-mock-top{display:flex;align-items:center;gap:7px;padding:12px 15px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+  .vit-mock-top i{width:10px;height:10px;border-radius:50%;background:var(--line-strong);display:inline-block}
+  .vit-mock-top b{margin-left:8px;font-size:12px;color:var(--muted);font-family:var(--mono)}
+  .vit-mock-body{padding:14px 15px;display:flex;flex-direction:column;gap:9px}
+  .vit-mrow{display:flex;align-items:center;gap:11px;padding:9px 11px;border:1px solid var(--line);border-radius:11px}
+  .vit-mrow .av{width:30px;height:30px;border-radius:8px;font-size:11px}
+  .vit-mrow .t{flex:1;min-width:0}
+  .vit-mrow .t b{display:block;font-size:13px}
+  .vit-mrow .t span{font-size:11px;color:var(--faint)}
+  .vit-sec{padding:38px 0}
+  .vit-sec h2{font-size:clamp(22px,3vw,28px);letter-spacing:-.02em;margin:0 0 6px;text-align:center;text-wrap:balance}
+  .vit-sec .subc{color:var(--muted);text-align:center;margin:0 auto 26px;max-width:56ch}
+  .vit-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+  .vit-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+  .vit-card .ic{width:46px;height:46px;border-radius:13px;background:var(--brand-tint);color:var(--brand);display:grid;place-items:center;font-size:22px;margin-bottom:13px}
+  .vit-card h3{margin:0 0 6px;font-size:16px;letter-spacing:-.01em}
+  .vit-card p{margin:0;color:var(--muted);font-size:14px;line-height:1.5}
+  .vit-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;
+    background:linear-gradient(135deg,var(--brand),var(--brand-2));border-radius:20px;padding:30px 26px;color:#fff}
+  .vit-stat .n{font-size:clamp(28px,4vw,36px);font-weight:800;letter-spacing:-.02em}
+  .vit-stat .l{opacity:.9;font-size:12px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+  .vit-band{background:var(--panel);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);
+    padding:30px;text-align:center;margin:8px 0}
+  .vit-band h2{margin:0 0 8px}
+  .vit-band p{color:var(--muted);margin:0 auto 18px;max-width:52ch}
+  .vit-foot{margin-top:auto;border-top:1px solid var(--line);padding:22px 0 30px;color:var(--muted);font-size:13px;
+    display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  @media(max-width:760px){ .vit-hero{grid-template-columns:1fr;gap:26px;padding:26px 0} .vit-mock{order:-1} }
 </style>
 
 </head>
@@ -291,13 +332,14 @@ function renderLogin(msg){
   var r=document.getElementById("root");
   r.innerHTML=''
   +'<div class="auth"><form class="auth-card" onsubmit="return doLogin(event)">'
-  +'<div class="auth-logo"><div class="mark">CF</div><div><h1>CRM Formation</h1><p class="tag">Suivi commercial des apprentis</p></div></div>'
+  +'<button type="button" class="btn-link" style="margin-bottom:8px" onclick="renderVitrine()">‹ Retour au site</button>'
+  +'<div class="auth-logo"><div class="mark">CF</div><div><h1>Espace collaborateur</h1><p class="tag">Connectez-vous pour accéder au CRM</p></div></div>'
   +(msg?'<div class="demo-note" style="border-color:var(--danger);color:var(--danger)">'+esc(msg)+'</div>':'')
   +'<div class="f" style="margin-top:14px"><label>Adresse e-mail</label><input class="inp" id="li_email" type="email" value="admin@centre.fr" required></div>'
   +'<div class="f" style="margin-top:12px"><label>Mot de passe</label><input class="inp" id="li_pass" type="password" value="admin1234" required></div>'
   +'<button class="btn" style="width:100%;justify-content:center;margin-top:18px" type="submit">Se connecter</button>'
-  +'<div class="demo-note"><b>Version démo.</b> Identifiants pré-remplis : <b>admin@centre.fr / admin1234</b>. '
-  +'Vos données sont enregistrées <b>dans ce navigateur uniquement</b> (rien n\'est envoyé sur internet).</div>'
+  +'<div class="demo-note">Compte administrateur par défaut : <b>admin@centre.fr / admin1234</b>. '
+  +'Ajoutez vos collaborateurs une fois connecté (menu <b>Collaborateurs</b>).</div>'
   +'</form></div>';
 }
 function doLogin(e){
@@ -311,7 +353,73 @@ function doLogin(e){
   VIEW="apprentis";renderApp();
   return false;
 }
-function logout(){localStorage.removeItem(K.session);renderLogin()}
+function logout(){localStorage.removeItem(K.session);renderVitrine()}
+
+//======================= VITRINE (site public) =======================
+function renderVitrine(){
+  document.body.className="";
+  var s=getSettings();
+  var nom=s.org_nom||"Centre de Formation";
+  var ville=s.org_ville?(" · "+esc(s.org_ville)):"";
+  var st=getAppr();
+  var nbAcc=st.filter(function(a){return a.statut==="accepte"}).length;
+  var r=document.getElementById("root");
+  r.innerHTML=''
+  +'<div class="vit">'
+  +'<div class="vit-wrap"><nav class="vit-nav">'
+  +'<div class="brand" style="display:flex;align-items:center;gap:11px"><div class="mark">CF</div>'
+  +'<div><b>'+esc(nom)+'</b><span>centre de formation'+ville+'</span></div></div>'
+  +'<button class="btn" onclick="renderLogin()">🔒 Espace collaborateur</button>'
+  +'</nav>'
+
+  +'<header class="vit-hero"><div>'
+  +'<div class="eyebrow">Espace professionnel</div>'
+  +'<h1>Le suivi de vos apprentis, simple et centralisé.</h1>'
+  +'<p class="lead">'+esc(nom)+' pilote les inscriptions, les dossiers et les documents de formation depuis un seul outil. Vos équipes se connectent et travaillent en temps réel.</p>'
+  +'<div class="vit-cta"><button class="btn lg" onclick="renderLogin()">Accéder au CRM →</button>'
+  +'<button class="btn ghost lg" onclick="document.getElementById(\'vitForm\').scrollIntoView({behavior:\'smooth\'})">Nos formations</button></div>'
+  +'</div>'
+  +'<div class="vit-mock"><div class="vit-mock-top"><i></i><i></i><i></i><b>CRM · Apprentis</b></div>'
+  +'<div class="vit-mock-body">'
+  + mockRow("MD","Marie Dupont","ACME SARL","accepte","Accepté")
+  + mockRow("LN","Lucas Nguyen","TechnoPlus","documents_manquants","Docs manquants")
+  + mockRow("AS","Aïcha Sow","BâtiPro","en_attente","En attente")
+  +'</div></div>'
+  +'</header></div>'
+
+  +'<section class="vit-wrap vit-sec" id="vitForm"><h2>Nos domaines de formation</h2>'
+  +'<p class="subc">Des parcours qualifiants, en apprentissage et en formation continue.</p>'
+  +'<div class="vit-cards">'
+  + vitCard("💻","Numérique & Web","Développement, systèmes et réseaux, titres professionnels et BTS.")
+  + vitCard("🛠️","Métiers techniques","CAP et titres pro : menuiserie, bâtiment, maintenance.")
+  + vitCard("📊","Gestion & Commerce","Vente, gestion, relation client et management de proximité.")
+  + vitCard("🎓","Apprentissage","Contrats d’apprentissage, alternance et suivi CERFA complet.")
+  +'</div></section>'
+
+  +'<section class="vit-wrap vit-sec"><div class="vit-stats">'
+  + vitStat(st.length||"—","Apprentis suivis")
+  + vitStat((nbAcc||0),"Dossiers acceptés")
+  + vitStat("98%","Satisfaction")
+  + vitStat("120+","Entreprises partenaires")
+  +'</div></section>'
+
+  +'<section class="vit-wrap vit-sec"><div class="vit-band">'
+  +'<h2>Vous faites partie de l’équipe ?</h2>'
+  +'<p>Connectez-vous à votre espace collaborateur pour gérer les apprentis, suivre les dossiers et générer le CERFA et la convention de formation.</p>'
+  +'<button class="btn lg" onclick="renderLogin()">🔒 Se connecter à l’espace collaborateur</button>'
+  +'</div></section>'
+
+  +'<div class="vit-wrap"><footer class="vit-foot"><span>© '+esc(nom)+' — Tous droits réservés.</span>'
+  +'<span>'+(s.org_email?esc(s.org_email):"contact@centre-formation.fr")+(s.org_tel?" · "+esc(s.org_tel):"")+'</span>'
+  +'</footer></div>'
+  +'</div>';
+}
+function mockRow(ini,nom,soc,cls,lbl){
+  return '<div class="vit-mrow"><div class="av">'+esc(ini)+'</div><div class="t"><b>'+esc(nom)+'</b><span>'+esc(soc)+'</span></div>'
+    +'<span class="badge b-'+cls+'">'+esc(lbl)+'</span></div>';
+}
+function vitCard(ic,t,p){return '<div class="vit-card"><div class="ic">'+ic+'</div><h3>'+esc(t)+'</h3><p>'+esc(p)+'</p></div>';}
+function vitStat(n,l){return '<div class="vit-stat"><div class="n">'+n+'</div><div class="l">'+esc(l)+'</div></div>';}
 
 //======================= APP SHELL =======================
 var VIEW="apprentis";
@@ -576,7 +684,7 @@ function viewSettings(){
 function saveSettings(){var s={};Array.prototype.forEach.call(document.querySelectorAll("#setf [data-s]"),function(el){s[el.getAttribute("data-s")]=el.value});save(K.settings,s);toast("Paramètres enregistrés")}
 
 //======================= BOOT =======================
-if(me())renderApp();else renderLogin();
+if(me())renderApp();else renderVitrine();
 </script>
 
 </body>
