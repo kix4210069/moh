@@ -10,7 +10,9 @@ const { requireAuth } = require('./auth');
 
 const router = express.Router();
 
-const UPLOAD_DIR = path.join(__dirname, '..', 'uploads');
+// Les photos sont stockées sous data/uploads pour être couvertes par le
+// disque persistant en production (un seul volume monté sur data/).
+const UPLOAD_DIR = path.join(__dirname, '..', 'data', 'uploads');
 if (!fs.existsSync(UPLOAD_DIR)) fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 
 const storage = multer.diskStorage({

@@ -14,6 +14,14 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.set('trust proxy', 1);
+
+// Outil interne privé : on demande aux moteurs de recherche de ne jamais
+// l'indexer, quelle que soit l'URL sur laquelle il est déployé.
+app.use((req, res, next) => {
+  res.setHeader('X-Robots-Tag', 'noindex, nofollow, noarchive');
+  next();
+});
+
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true }));
 
@@ -39,7 +47,7 @@ app.use('/api/documents', documentsRouter);
 app.use('/api/settings', settingsRouter);
 
 // Photos (protégées par authentification)
-app.use('/uploads', requireAuth, express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', requireAuth, express.static(path.join(__dirname, 'data', 'uploads')));
 
 // Front statique
 app.use(express.static(path.join(__dirname, 'public')));

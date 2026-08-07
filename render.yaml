@@ -1,0 +1,25 @@
+# Déploiement du CRM Formation sur Render (https://render.com).
+# Sur Render : New > Blueprint > choisir ce dépôt et la branche du CRM.
+# Render lit ce fichier et crée automatiquement le service + le disque de données.
+services:
+  - type: web
+    name: crm-formation
+    runtime: node
+    rootDir: crm
+    region: frankfurt
+    plan: starter          # ~7 $/mois, toujours allumé (requis pour le disque persistant)
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SESSION_SECRET
+        generateValue: true   # clé de sécurité générée automatiquement
+      - key: ADMIN_EMAIL
+        sync: false           # à saisir dans l'interface Render (votre e-mail admin)
+      - key: ADMIN_PASSWORD
+        sync: false           # à saisir dans l'interface Render (votre mot de passe admin)
+    disk:
+      name: crm-data
+      mountPath: /opt/render/project/src/crm/data   # conserve base de données + photos
+      sizeGB: 1
