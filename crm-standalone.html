@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>CRM Formation — Suivi des apprentis</title>
+<style>
+  :root{
+    --bg:#eef1f8; --panel:#ffffff; --panel-2:#f7f9fd;
+    --ink:#161d33; --muted:#5b6683; --faint:#8a93ad;
+    --line:#e2e7f2; --line-strong:#cfd6e6;
+    --brand:#1e2e8f; --brand-2:#3346c7; --brand-ink:#ffffff; --brand-tint:#eaeeff;
+    --ok:#0f7a4d; --ok-bg:#e4f4ec; --warn:#9a6a05; --warn-bg:#faf0d7;
+    --danger:#bb3626; --danger-bg:#fae7e3; --wait:#4a5573; --wait-bg:#eceff6;
+    --shadow:0 1px 2px rgba(22,29,51,.06), 0 8px 28px rgba(22,29,51,.07);
+    --radius:14px;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  :root:not([data-theme="light"]){}
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#0c1120; --panel:#141b2e; --panel-2:#111726;
+      --ink:#e8ecf8; --muted:#98a2be; --faint:#6b7592;
+      --line:#242d44; --line-strong:#313b56;
+      --brand:#5468e6; --brand-2:#6d7ef0; --brand-ink:#0c1120; --brand-tint:#1c2444;
+      --ok:#3ec488; --ok-bg:#123227; --warn:#e0aa3a; --warn-bg:#33290f;
+      --danger:#e97060; --danger-bg:#361c19; --wait:#9aa4c0; --wait-bg:#1c2336;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+      --bg:#0c1120; --panel:#141b2e; --panel-2:#111726;
+      --ink:#e8ecf8; --muted:#98a2be; --faint:#6b7592;
+      --line:#242d44; --line-strong:#313b56;
+      --brand:#5468e6; --brand-2:#6d7ef0; --brand-ink:#0c1120; --brand-tint:#1c2444;
+      --ok:#3ec488; --ok-bg:#123227; --warn:#e0aa3a; --warn-bg:#33290f;
+      --danger:#e97060; --danger-bg:#361c19; --wait:#9aa4c0; --wait-bg:#1c2336;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px rgba(0,0,0,.35);
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg); color:var(--ink); font-family:var(--sans); font-size:15px; line-height:1.5; -webkit-font-smoothing:antialiased;}
+  button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
+  ::selection{background:var(--brand-tint)}
+  .mono{font-family:var(--mono)}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+
+  /* ---------- LOGIN ---------- */
+  .auth{min-height:100vh;display:grid;place-items:center;padding:24px;
+    background:radial-gradient(1200px 600px at 20% -10%, var(--brand-tint), transparent 60%), var(--bg);}
+  .auth-card{width:100%;max-width:400px;background:var(--panel);border:1px solid var(--line);
+    border-radius:20px;box-shadow:var(--shadow);padding:34px 30px;}
+  .auth-logo{display:flex;align-items:center;gap:11px;margin-bottom:22px}
+  .mark{width:40px;height:40px;border-radius:11px;background:linear-gradient(150deg,var(--brand),var(--brand-2));
+    color:var(--brand-ink);display:grid;place-items:center;font-weight:800;font-size:19px;font-family:var(--mono)}
+  .auth h1{font-size:19px;margin:0;letter-spacing:-.01em}
+  .auth .tag{color:var(--muted);font-size:13px;margin:1px 0 0}
+  .demo-note{margin-top:16px;background:var(--panel-2);border:1px dashed var(--line-strong);
+    border-radius:12px;padding:11px 13px;font-size:12.5px;color:var(--muted)}
+  .demo-note b{color:var(--ink)}
+
+  /* ---------- APP SHELL ---------- */
+  .app{display:grid;grid-template-columns:236px 1fr;min-height:100vh}
+  .side{background:var(--panel);border-right:1px solid var(--line);display:flex;flex-direction:column;padding:18px 14px;gap:6px}
+  .side .brand{display:flex;align-items:center;gap:10px;padding:6px 8px 16px}
+  .side .brand b{font-size:15px;letter-spacing:-.01em;display:block;line-height:1.1}
+  .side .brand span{font-size:11px;color:var(--faint);font-family:var(--mono)}
+  .nav{display:flex;flex-direction:column;gap:3px}
+  .nav a{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:10px;color:var(--muted);
+    cursor:pointer;font-weight:550;font-size:14px;text-decoration:none;border:1px solid transparent}
+  .nav a:hover{background:var(--panel-2);color:var(--ink)}
+  .nav a.on{background:var(--brand-tint);color:var(--brand);border-color:color-mix(in srgb,var(--brand) 22%,transparent)}
+  .nav a svg{width:18px;height:18px;flex:none}
+  .side .grow{flex:1}
+  .whoami{border-top:1px solid var(--line);padding-top:14px;font-size:13px;display:flex;align-items:center;gap:10px}
+  .whoami .av{width:32px;height:32px;border-radius:50%;background:var(--brand-tint);color:var(--brand);
+    display:grid;place-items:center;font-weight:700;font-size:12px;font-family:var(--mono);flex:none}
+  .whoami .n{font-weight:600;line-height:1.1}
+  .whoami .r{font-size:11px;color:var(--faint);font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em}
+  .icon-btn{margin-left:auto;background:none;border:0;color:var(--faint);cursor:pointer;padding:6px;border-radius:8px}
+  .icon-btn:hover{background:var(--panel-2);color:var(--ink)}
+
+  .main{padding:26px 30px 60px;overflow:auto;max-height:100vh}
+  .head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+  .head h2{margin:0;font-size:23px;letter-spacing:-.02em}
+  .head .sub{color:var(--muted);font-size:13.5px;margin-top:3px}
+
+  /* ---------- STATS ---------- */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:13px;margin-bottom:22px}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:15px 17px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .stat::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--brand)}
+  .stat.s-ok::before{background:var(--ok)} .stat.s-warn::before{background:var(--warn)}
+  .stat.s-danger::before{background:var(--danger)} .stat.s-wait::before{background:var(--wait)}
+  .stat .n{font-size:27px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .stat .l{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-top:2px}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+  .card-pad{padding:18px}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line)}
+  .inp{padding:9px 12px;border:1px solid var(--line-strong);border-radius:10px;background:var(--panel-2);min-width:0}
+  .inp:focus{outline:2px solid var(--brand);outline-offset:-1px;border-color:var(--brand);background:var(--panel)}
+  input.search{flex:1;min-width:200px}
+
+  /* ---------- TABLE ---------- */
+  .twrap{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;min-width:640px}
+  th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line)}
+  th{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--faint);font-weight:600}
+  tbody tr{cursor:pointer}
+  tbody tr:hover{background:var(--panel-2)}
+  tbody tr:last-child td{border-bottom:0}
+  .who{display:flex;align-items:center;gap:12px}
+  .av{width:40px;height:40px;border-radius:11px;object-fit:cover;background:var(--brand-tint);color:var(--brand);
+    display:grid;place-items:center;font-weight:700;font-size:14px;font-family:var(--mono);flex:none}
+  .who b{display:block;letter-spacing:-.01em} .who small{color:var(--faint);font-size:12px}
+
+  .badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px 4px 8px;border-radius:999px;font-size:12px;font-weight:650;white-space:nowrap}
+  .badge::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+  .b-accepte{color:var(--ok);background:var(--ok-bg)}
+  .b-refuse{color:var(--danger);background:var(--danger-bg)}
+  .b-documents_manquants{color:var(--warn);background:var(--warn-bg)}
+  .b-en_attente{color:var(--wait);background:var(--wait-bg)}
+
+  /* ---------- BUTTONS ---------- */
+  .btn{border:1px solid transparent;border-radius:10px;padding:9px 15px;font-weight:600;cursor:pointer;
+    background:var(--brand);color:var(--brand-ink);display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+  .btn:hover{background:var(--brand-2)}
+  .btn:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+  .btn.ghost{background:var(--panel);color:var(--ink);border-color:var(--line-strong)}
+  .btn.ghost:hover{background:var(--panel-2)}
+  .btn.sm{padding:6px 11px;font-size:13px}
+  .btn.ok{background:var(--ok)} .btn.ok:hover{filter:brightness(1.05)}
+  .btn.danger{background:var(--danger)}
+  .btn[disabled]{opacity:.45;cursor:not-allowed}
+  .link{background:none;border:0;color:var(--brand);cursor:pointer;font-weight:600;padding:0}
+
+  .empty{text-align:center;color:var(--muted);padding:48px 20px}
+  .empty svg{width:40px;height:40px;color:var(--faint);margin-bottom:8px}
+
+  /* ---------- DRAWER ---------- */
+  .ov{position:fixed;inset:0;background:rgba(12,17,32,.55);opacity:0;pointer-events:none;transition:opacity .2s;z-index:40}
+  .ov.on{opacity:1;pointer-events:auto}
+  .drawer{position:fixed;top:0;right:0;height:100vh;width:min(780px,100%);background:var(--bg);z-index:41;
+    transform:translateX(100%);transition:transform .26s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-12px 0 40px rgba(0,0,0,.22)}
+  .drawer.on{transform:none}
+  .drawer-h{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 22px;background:var(--panel);border-bottom:1px solid var(--line)}
+  .drawer-h h3{margin:0;font-size:17px;letter-spacing:-.01em}
+  .drawer-b{flex:1;overflow:auto;padding:20px 22px}
+  .drawer-f{display:flex;gap:10px;justify-content:space-between;align-items:center;padding:13px 22px;background:var(--panel);border-top:1px solid var(--line);flex-wrap:wrap}
+  .x{background:none;border:0;font-size:24px;line-height:1;color:var(--faint);cursor:pointer;padding:4px 8px;border-radius:8px}
+  .x:hover{background:var(--panel-2);color:var(--ink)}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .f{display:flex;flex-direction:column;gap:5px}
+  .f.full{grid-column:1/-1}
+  .f label{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+  .f input,.f select,.f textarea{padding:9px 11px;border:1px solid var(--line-strong);border-radius:9px;background:var(--panel);width:100%}
+  .f input:focus,.f select:focus,.f textarea:focus{outline:2px solid var(--brand);outline-offset:-1px;border-color:var(--brand)}
+  .f textarea{resize:vertical;min-height:56px}
+  .sect{grid-column:1/-1;font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--brand);
+    padding-bottom:7px;border-bottom:2px solid var(--line);margin:10px 0 -2px;font-family:var(--mono)}
+  .sect:first-child{margin-top:0}
+
+  .photo-row{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+  .photo{width:96px;height:96px;border-radius:14px;object-fit:cover;background:var(--panel-2);border:1px solid var(--line-strong);
+    display:grid;place-items:center;color:var(--faint);font-size:11px;font-family:var(--mono);text-align:center;flex:none}
+
+  .docbox{grid-column:1/-1;margin-top:12px;background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .docbox h4{margin:0 0 4px;font-size:14px}
+  .docbox p{margin:0 0 10px;color:var(--muted);font-size:13px}
+  .miss{color:var(--danger);font-size:13px;margin:6px 0 0;padding-left:18px}
+  .doc-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+
+  /* ---------- TOAST ---------- */
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(12px);background:var(--ink);color:var(--bg);
+    padding:11px 18px;border-radius:11px;font-size:14px;font-weight:550;opacity:0;pointer-events:none;transition:.22s;z-index:60;box-shadow:var(--shadow)}
+  .toast.on{opacity:1;transform:translateX(-50%)}
+  .toast.err{background:var(--danger);color:#fff}
+
+  .hint{background:var(--brand-tint);border:1px solid color-mix(in srgb,var(--brand) 20%,transparent);color:var(--ink);
+    border-radius:12px;padding:12px 15px;font-size:13px;margin-bottom:18px;display:flex;gap:10px;align-items:flex-start}
+  .hint b{color:var(--brand)}
+
+  /* ---------- DOCUMENT (print) ---------- */
+  .docview{position:fixed;inset:0;background:#586;overflow:auto;z-index:70;display:none;padding:24px 12px}
+  .docview.on{display:block}
+  .docbar{position:sticky;top:0;z-index:2;max-width:820px;margin:0 auto 16px;display:flex;gap:10px;justify-content:space-between;align-items:center;
+    background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 14px;box-shadow:var(--shadow)}
+  .sheet{max-width:820px;margin:0 auto;background:#fff;color:#15171c;padding:46px 52px;border-radius:4px;box-shadow:0 20px 50px rgba(0,0,0,.3)}
+  .sheet h1{font-size:20px;text-align:center;color:#1e2e8f;margin:0 0 3px;letter-spacing:-.01em}
+  .sheet .ref{text-align:center;font-family:var(--mono);font-size:11px;color:#667;margin:0 0 22px}
+  .sheet .sh{background:#1e2e8f;color:#fff;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    padding:5px 10px;border-radius:4px;margin:18px 0 12px}
+  .frow{display:grid;gap:8px;margin-bottom:8px}
+  .fb{border:1px solid #b9c0d0;border-radius:4px;padding:6px 9px;min-height:38px}
+  .fb .k{font-family:var(--mono);font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;color:#78829a}
+  .fb .v{font-weight:650;font-size:13px;margin-top:2px}
+  .sheet p.body{font-size:12.5px;line-height:1.6;text-align:justify;margin:8px 0}
+  .sheet .art{font-weight:700;color:#1e2e8f;font-size:12.5px;margin:12px 0 3px}
+  .signs{display:grid;gap:14px;margin-top:26px}
+  .sign{border:1px solid #b9c0d0;border-radius:5px;height:92px;padding:7px 10px;position:relative}
+  .sign .k{font-family:var(--mono);font-size:9px;color:#556;text-transform:uppercase;letter-spacing:.05em}
+  .sign .s{position:absolute;bottom:7px;left:10px;font-size:8px;color:#aab;font-style:italic}
+  .sheet .foot{margin-top:26px;border-top:1px solid #dde;padding-top:8px;text-align:center;font-family:var(--mono);font-size:9px;color:#889}
+
+  @media(max-width:820px){
+    .app{grid-template-columns:1fr}
+    .side{flex-direction:row;align-items:center;overflow-x:auto;padding:10px 12px;position:sticky;top:0;z-index:5}
+    .side .brand,.side .grow,.side .whoami{display:none}
+    .nav{flex-direction:row}
+    .main{max-height:none}
+    .grid{grid-template-columns:1fr}
+  }
+  @media print{
+    body{background:#fff}
+    .docview{position:static;background:#fff;padding:0;overflow:visible}
+    .docbar{display:none}
+    .sheet{box-shadow:none;max-width:none;margin:0;padding:0;border-radius:0}
+    .app,.drawer,.ov,.toast,.docview.on ~ *{display:none!important}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+</head>
+<body>
+<div id="root"></div>
+<div class="ov" id="ov" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer" role="dialog" aria-modal="true">
+  <div class="drawer-h"><h3 id="dTitle">Fiche</h3><button class="x" onclick="closeDrawer()" aria-label="Fermer">×</button></div>
+  <div class="drawer-b" id="dBody"></div>
+  <div class="drawer-f" id="dFoot"></div>
+</div>
+<div class="docview" id="docview"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+//======================= STORAGE =======================
+var K={users:"crm_users_v1",apprentis:"crm_apprentis_v1",settings:"crm_settings_v1",session:"crm_session_v1"};
+function load(k,def){try{var v=localStorage.getItem(k);return v?JSON.parse(v):def}catch(e){return def}}
+function save(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function uid(){return (crypto.randomUUID?crypto.randomUUID():"id"+Date.now()+Math.round(Math.random()*1e6))}
+
+function seed(){
+  if(!localStorage.getItem(K.users)){
+    save(K.users,[
+      {id:uid(),nom:"Administrateur",email:"admin@centre.fr",pass:"admin1234",role:"admin",active:true},
+      {id:uid(),nom:"Paul Martin",email:"paul@centre.fr",pass:"paul123",role:"collaborateur",active:true}
+    ]);
+  }
+  if(!localStorage.getItem(K.settings)){
+    save(K.settings,{org_nom:"Mon Centre de Formation",org_representant:"",org_siret:"",org_nda:"",org_tel:"",org_email:"",org_adresse:"",org_cp:"",org_ville:""});
+  }
+  if(!localStorage.getItem(K.apprentis)){
+    save(K.apprentis,[
+      {id:uid(),nom:"Dupont",prenom:"Marie",email:"marie.dupont@email.fr",tel:"06 12 34 56 78",date_naissance:"2004-05-14",sexe:"F",nationalite:"Française",adresse:"12 rue des Lilas",cp:"75011",ville:"Paris",
+       societe:"ACME SARL",societe_siret:"812 345 678 00021",societe_rep:"J. Bernard",societe_effectif:"24",societe_naf:"6201Z",societe_adresse:"5 av. de la République",societe_cp:"75011",societe_ville:"Paris",
+       formation:"Titre Pro Développeur Web et Web Mobile",formation_diplome:"TP DWWM",formation_niveau:"5",formation_rncp:"RNCP37674",date_debut:"2026-09-01",date_fin:"2027-08-31",date_debut_f:"2026-09-08",date_fin_f:"2027-07-15",duree:"1200",rythme:"2j/sem",remuneration:"61% SMIC",cout:"8500",
+       statut:"accepte",docs_manquants:"",notes:"Dossier complet.",photo:"",updated:Date.now()},
+      {id:uid(),nom:"Nguyen",prenom:"Lucas",email:"l.nguyen@email.fr",tel:"07 88 22 11 00",date_naissance:"2003-11-02",sexe:"M",nationalite:"Française",adresse:"3 impasse Verte",cp:"69003",ville:"Lyon",
+       societe:"TechnoPlus",societe_siret:"902 111 222 00014",societe_rep:"S. Ali",societe_effectif:"12",societe_naf:"6202A",societe_adresse:"18 cours Lafayette",societe_cp:"69003",societe_ville:"Lyon",
+       formation:"BTS SIO option SLAM",formation_diplome:"BTS SIO",formation_niveau:"5",formation_rncp:"RNCP35340",date_debut:"2026-09-01",date_fin:"2028-06-30",date_debut_f:"",date_fin_f:"",duree:"",rythme:"3j/sem",remuneration:"53% SMIC",cout:"",
+       statut:"documents_manquants",docs_manquants:"Carte d'identité, justificatif de domicile",notes:"",photo:"",updated:Date.now()-1e6},
+      {id:uid(),nom:"Sow",prenom:"Aïcha",email:"aicha.sow@email.fr",tel:"06 44 55 66 77",date_naissance:"2005-02-20",sexe:"F",nationalite:"Française",adresse:"",cp:"",ville:"Marseille",
+       societe:"BâtiPro",societe_siret:"",societe_rep:"",societe_effectif:"",societe_naf:"",societe_adresse:"",societe_cp:"",societe_ville:"Marseille",
+       formation:"CAP Menuisier installateur",formation_diplome:"CAP MI",formation_niveau:"3",formation_rncp:"",date_debut:"",date_fin:"",date_debut_f:"",date_fin_f:"",duree:"",rythme:"",remuneration:"",cout:"",
+       statut:"en_attente",docs_manquants:"",notes:"À recontacter la semaine prochaine.",photo:"",updated:Date.now()-2e6}
+    ]);
+  }
+}
+seed();
+
+//======================= HELPERS =======================
+var STAT={en_attente:"En attente",accepte:"Accepté",refuse:"Refusé",documents_manquants:"Documents manquants"};
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function dfr(s){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(s||"");return m?m[3]+"/"+m[2]+"/"+m[1]:(s||"")}
+function ini(a){return((a.prenom||" ")[0]+(a.nom||" ")[0]).toUpperCase()}
+function toast(m,err){var t=document.getElementById("toast");t.textContent=m;t.className="toast on"+(err?" err":"");clearTimeout(t._h);t._h=setTimeout(function(){t.className="toast"+(err?" err":"")},2600)}
+function getUsers(){return load(K.users,[])}
+function getAppr(){return load(K.apprentis,[])}
+function getSettings(){return load(K.settings,{})}
+function session(){return load(K.session,null)}
+function me(){var s=session();if(!s)return null;return getUsers().filter(function(u){return u.id===s})[0]||null}
+
+//======================= AUTH =======================
+function renderLogin(msg){
+  document.body.className="";
+  var r=document.getElementById("root");
+  r.innerHTML=''
+  +'<div class="auth"><form class="auth-card" onsubmit="return doLogin(event)">'
+  +'<div class="auth-logo"><div class="mark">CF</div><div><h1>CRM Formation</h1><p class="tag">Suivi commercial des apprentis</p></div></div>'
+  +(msg?'<div class="demo-note" style="border-color:var(--danger);color:var(--danger)">'+esc(msg)+'</div>':'')
+  +'<div class="f" style="margin-top:14px"><label>Adresse e-mail</label><input class="inp" id="li_email" type="email" value="admin@centre.fr" required></div>'
+  +'<div class="f" style="margin-top:12px"><label>Mot de passe</label><input class="inp" id="li_pass" type="password" value="admin1234" required></div>'
+  +'<button class="btn" style="width:100%;justify-content:center;margin-top:18px" type="submit">Se connecter</button>'
+  +'<div class="demo-note"><b>Version démo.</b> Identifiants pré-remplis : <b>admin@centre.fr / admin1234</b>. '
+  +'Vos données sont enregistrées <b>dans ce navigateur uniquement</b> (rien n\'est envoyé sur internet).</div>'
+  +'</form></div>';
+}
+function doLogin(e){
+  e.preventDefault();
+  var em=document.getElementById("li_email").value.toLowerCase().trim();
+  var pw=document.getElementById("li_pass").value;
+  var u=getUsers().filter(function(x){return x.email.toLowerCase()===em})[0];
+  if(!u||u.pass!==pw){renderLogin("Identifiants incorrects.");return false}
+  if(!u.active){renderLogin("Ce compte a été désactivé : accès retiré.");return false}
+  save(K.session,u.id);
+  VIEW="apprentis";renderApp();
+  return false;
+}
+function logout(){localStorage.removeItem(K.session);renderLogin()}
+
+//======================= APP SHELL =======================
+var VIEW="apprentis";
+function icon(name){var p={
+  users:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
+  key:'<path d="M21 2l-2 2m-3.5 3.5L13 10m-2 2a4 4 0 1 1-5.66 5.66A4 4 0 0 1 11 12l6-6"/>',
+  gear:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-2.82 1.17V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 8 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>',
+  out:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>',
+  inbox:'<path d="M22 12h-6l-2 3h-4l-2-3H2M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>'
+  }[name];return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>'}
+
+function renderApp(){
+  var u=me();if(!u){renderLogin();return}
+  document.body.className="";
+  var admin=u.role==="admin";
+  var nav=[["apprentis","inbox","Apprentis",true],["collaborateurs","users","Collaborateurs",admin],["parametres","gear","Paramètres",admin]]
+    .filter(function(n){return n[3]}).map(function(n){
+      return '<a class="'+(VIEW===n[0]?"on":"")+'" onclick="go(\''+n[0]+'\')">'+icon(n[1])+'<span>'+n[2]+'</span></a>'}).join("");
+  document.getElementById("root").innerHTML=''
+  +'<div class="app"><aside class="side">'
+  +'<div class="brand"><div class="mark">CF</div><div><b>CRM Formation</b><span>centre-formation</span></div></div>'
+  +'<nav class="nav">'+nav+'</nav><div class="grow"></div>'
+  +'<div class="whoami"><div class="av">'+esc((u.nom||"?")[0])+'</div><div><div class="n">'+esc(u.nom||u.email)+'</div>'
+  +'<div class="r">'+(admin?"Administrateur":"Collaborateur")+'</div></div>'
+  +'<button class="icon-btn" title="Se déconnecter" onclick="logout()">'+icon("out")+'</button></div>'
+  +'</aside><main class="main" id="main"></main></div>';
+  if(VIEW==="apprentis")viewApprentis();
+  else if(VIEW==="collaborateurs")viewUsers();
+  else viewSettings();
+}
+function go(v){VIEW=v;renderApp()}
+
+//======================= VIEW: APPRENTIS =======================
+var Q="",FILT="";
+function viewApprentis(){
+  var all=getAppr();
+  var st={total:all.length,accepte:0,refuse:0,documents_manquants:0,en_attente:0};
+  all.forEach(function(a){st[a.statut]=(st[a.statut]||0)+1});
+  var q=Q.toLowerCase();
+  var list=all.filter(function(a){
+    var okq=!q||[a.nom,a.prenom,a.societe,a.formation].join(" ").toLowerCase().indexOf(q)>=0;
+    var okf=!FILT||a.statut===FILT;return okq&&okf})
+    .sort(function(a,b){return (b.updated||0)-(a.updated||0)});
+  var rows=list.map(function(a){
+    var av=a.photo?'<img class="av" src="'+a.photo+'" alt="">':'<div class="av">'+esc(ini(a))+'</div>';
+    return '<tr onclick="openAppr(\''+a.id+'\')"><td><div class="who">'+av+'<div><b>'+esc(a.prenom)+' '+esc(a.nom)+'</b>'
+    +'<small>'+esc(a.email||"")+'</small></div></div></td><td>'+esc(a.societe||"—")+'</td>'
+    +'<td>'+esc(a.formation||"—")+'</td><td><span class="badge b-'+a.statut+'">'+STAT[a.statut]+'</span></td>'
+    +'<td style="text-align:right"><span class="link">Ouvrir ›</span></td></tr>'}).join("");
+  document.getElementById("main").innerHTML=''
+  +'<div class="head"><div><h2>Apprentis</h2><div class="sub">Fiches, états des dossiers et génération des documents</div></div>'
+  +'<button class="btn" onclick="openAppr(null)">＋ Nouvel apprenti</button></div>'
+  +'<div class="stats">'
+  +stat("",st.total,"Total")+stat("s-ok",st.accepte,"Acceptés")+stat("s-warn",st.documents_manquants,"Docs manquants")
+  +stat("s-wait",st.en_attente,"En attente")+stat("s-danger",st.refuse,"Refusés")+'</div>'
+  +'<div class="card"><div class="toolbar">'
+  +'<input class="inp search" placeholder="Rechercher un nom, une société, une formation…" value="'+esc(Q)+'" oninput="Q=this.value;refreshTable()">'
+  +'<select class="inp" onchange="FILT=this.value;refreshTable()">'
+  +['','en_attente','accepte','documents_manquants','refuse'].map(function(v){return '<option value="'+v+'"'+(FILT===v?" selected":"")+'>'+(v?STAT[v]:"Tous les statuts")+'</option>'}).join("")
+  +'</select></div><div class="twrap" id="tbl">'+tableHTML(rows)+'</div></div>';
+}
+function stat(cls,n,l){return '<div class="stat '+cls+'"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>'}
+function tableHTML(rows){return rows?'<table><thead><tr><th>Apprenti</th><th>Société</th><th>Formation</th><th>État du dossier</th><th></th></tr></thead><tbody>'+rows+'</tbody></table>'
+  :'<div class="empty">'+icon("inbox")+'<div>Aucun apprenti pour ce filtre.</div></div>'}
+function refreshTable(){
+  var all=getAppr(),q=Q.toLowerCase();
+  var list=all.filter(function(a){var okq=!q||[a.nom,a.prenom,a.societe,a.formation].join(" ").toLowerCase().indexOf(q)>=0;return okq&&(!FILT||a.statut===FILT)}).sort(function(a,b){return(b.updated||0)-(a.updated||0)});
+  var rows=list.map(function(a){var av=a.photo?'<img class="av" src="'+a.photo+'" alt="">':'<div class="av">'+esc(ini(a))+'</div>';
+    return '<tr onclick="openAppr(\''+a.id+'\')"><td><div class="who">'+av+'<div><b>'+esc(a.prenom)+' '+esc(a.nom)+'</b><small>'+esc(a.email||"")+'</small></div></div></td><td>'+esc(a.societe||"—")+'</td><td>'+esc(a.formation||"—")+'</td><td><span class="badge b-'+a.statut+'">'+STAT[a.statut]+'</span></td><td style="text-align:right"><span class="link">Ouvrir ›</span></td></tr>'}).join("");
+  document.getElementById("tbl").innerHTML=tableHTML(rows);
+}
+
+//======================= DRAWER: FICHE =======================
+var FORM=[
+ {s:"Identité de l’apprenti"},
+ {k:"prenom",l:"Prénom *"},{k:"nom",l:"Nom *"},
+ {k:"date_naissance",l:"Date de naissance",t:"date"},{k:"sexe",l:"Sexe",t:"sel",o:[["","—"],["M","M"],["F","F"]]},
+ {k:"nationalite",l:"Nationalité"},{k:"tel",l:"Téléphone"},
+ {k:"email",l:"E-mail",t:"email",full:1},
+ {k:"adresse",l:"Adresse",full:1},{k:"cp",l:"Code postal"},{k:"ville",l:"Ville"},
+ {s:"Société d’appartenance"},
+ {k:"societe",l:"Société *"},{k:"societe_siret",l:"SIRET"},
+ {k:"societe_rep",l:"Représentant"},{k:"societe_effectif",l:"Effectif"},{k:"societe_naf",l:"Code NAF/APE"},
+ {k:"societe_adresse",l:"Adresse société",full:1},{k:"societe_cp",l:"Code postal"},{k:"societe_ville",l:"Ville"},
+ {s:"Formation suivie"},
+ {k:"formation",l:"Intitulé de la formation *",full:1},
+ {k:"formation_diplome",l:"Diplôme / titre préparé"},{k:"formation_niveau",l:"Niveau (3,4,5…)"},{k:"formation_rncp",l:"Code RNCP"},
+ {k:"date_debut",l:"Début du contrat *",t:"date"},{k:"date_fin",l:"Fin du contrat *",t:"date"},
+ {k:"date_debut_f",l:"Début formation",t:"date"},{k:"date_fin_f",l:"Fin formation",t:"date"},
+ {k:"duree",l:"Durée (heures)"},{k:"rythme",l:"Rythme"},{k:"remuneration",l:"Rémunération"},{k:"cout",l:"Coût formation (€)"},
+ {s:"Suivi du dossier"},
+ {k:"statut",l:"État du dossier",t:"sel",o:[["en_attente","En attente"],["accepte","Accepté"],["documents_manquants","Documents manquants"],["refuse","Refusé"]]},
+ {k:"docs_manquants",l:"Documents manquants (précisez)",t:"area",full:1},
+ {k:"notes",l:"Notes internes",t:"area",full:1}
+];
+var REQ=[["prenom","Prénom"],["nom","Nom"],["societe","Société"],["formation","Formation"],["date_debut","Date de début"],["date_fin","Date de fin"]];
+var CUR=null;
+function fieldHTML(f,a){
+  if(f.s)return '<div class="sect">'+esc(f.s)+'</div>';
+  var v=a[f.k]==null?"":a[f.k];var cls="f"+(f.full||f.t==="area"?" full":"");
+  var inp;
+  if(f.t==="sel")inp='<select data-k="'+f.k+'">'+f.o.map(function(o){return '<option value="'+o[0]+'"'+(String(v)===o[0]?" selected":"")+'>'+esc(o[1])+'</option>'}).join("")+'</select>';
+  else if(f.t==="area")inp='<textarea data-k="'+f.k+'">'+esc(v)+'</textarea>';
+  else inp='<input type="'+(f.t||"text")+'" data-k="'+f.k+'" value="'+esc(v)+'">';
+  return '<div class="'+cls+'"><label>'+esc(f.l)+'</label>'+inp+'</div>';
+}
+function openAppr(id){
+  CUR=id?getAppr().filter(function(a){return a.id===id})[0]:{statut:"en_attente"};
+  if(!CUR)return;
+  document.getElementById("dTitle").textContent=id?(CUR.prenom+" "+CUR.nom):"Nouvel apprenti";
+  var photo=CUR.photo?'<img class="photo" id="ph" src="'+CUR.photo+'" alt="">':'<div class="photo" id="ph">Photo</div>';
+  document.getElementById("dBody").innerHTML=''
+  +'<div class="photo-row">'+photo+'<div>'
+  +'<input type="file" id="phInput" accept="image/*" style="display:none" onchange="pickPhoto(event)">'
+  +'<button class="btn ghost sm" onclick="document.getElementById(\'phInput\').click()">📷 '+(CUR.photo?"Changer la photo":"Ajouter une photo")+'</button>'
+  +'<div style="font-size:12px;color:var(--muted);margin-top:6px">JPG, PNG… enregistrée dans la fiche</div></div></div>'
+  +'<div class="grid" id="frm">'+FORM.map(function(f){return fieldHTML(f,CUR)}).join("")+'</div>'
+  +'<div class="grid"><div class="docbox" id="docbox"></div></div>';
+  var del=id?'<button class="btn danger sm" onclick="delAppr(\''+id+'\')">Supprimer</button>':'<span></span>';
+  document.getElementById("dFoot").innerHTML=del+'<div style="display:flex;gap:10px"><button class="btn ghost" onclick="closeDrawer()">Fermer</button><button class="btn" onclick="saveAppr()">'+(id?"Enregistrer":"Créer la fiche")+'</button></div>';
+  refreshDocbox();
+  openDrawer();
+}
+function collect(){var o={};Array.prototype.forEach.call(document.querySelectorAll("#frm [data-k]"),function(el){o[el.getAttribute("data-k")]=el.value});return o}
+function pickPhoto(e){var file=e.target.files[0];if(!file)return;var rd=new FileReader();rd.onload=function(){CUR.photo=rd.result;var ph=document.getElementById("ph");ph.outerHTML='<img class="photo" id="ph" src="'+rd.result+'" alt="">';toast("Photo ajoutée — pensez à enregistrer")};rd.readAsDataURL(file)}
+function saveAppr(){
+  var d=collect();d.photo=CUR.photo||"";
+  if(!d.nom||!d.prenom||!d.societe){toast("Nom, prénom et société sont requis",1);return}
+  var all=getAppr();
+  if(CUR.id){for(var i=0;i<all.length;i++)if(all[i].id===CUR.id){d.id=CUR.id;d.updated=Date.now();all[i]=d;break}}
+  else{d.id=uid();d.updated=Date.now();all.push(d);CUR=d}
+  save(K.apprentis,all);toast("Fiche enregistrée");
+  document.getElementById("dTitle").textContent=d.prenom+" "+d.nom;
+  refreshDocbox();
+  if(VIEW==="apprentis")viewApprentis();
+}
+function delAppr(id){if(!confirm("Supprimer définitivement cette fiche ?"))return;save(K.apprentis,getAppr().filter(function(a){return a.id!==id}));toast("Fiche supprimée");closeDrawer();viewApprentis()}
+function missing(){var d=CUR.id?collect():collect();return REQ.filter(function(r){return !String(d[r[0]]||"").trim()}).map(function(r){return r[1]})}
+function refreshDocbox(){
+  var box=document.getElementById("docbox");if(!box)return;
+  var d=collect();var miss=REQ.filter(function(r){return !String(d[r[0]]||"").trim()});
+  if(miss.length===0){
+    box.innerHTML='<h4>📄 Documents à générer</h4><p>Toutes les informations obligatoires sont renseignées.</p>'
+    +'<div class="doc-actions"><button class="btn ok" onclick="genDoc(\'cerfa\')">Générer le CERFA</button>'
+    +'<button class="btn" onclick="genDoc(\'convention\')">Générer la convention</button></div>';
+  }else{
+    box.innerHTML='<h4>📄 Documents à générer</h4><p>Complétez ces champs pour débloquer la génération :</p>'
+    +'<ul class="miss">'+miss.map(function(m){return "<li>"+esc(m)+"</li>"}).join("")+'</ul>';
+  }
+}
+document.addEventListener("input",function(e){if(e.target&&e.target.getAttribute&&e.target.getAttribute("data-k")&&document.getElementById("docbox"))refreshDocbox()});
+function openDrawer(){document.getElementById("ov").classList.add("on");document.getElementById("drawer").classList.add("on")}
+function closeDrawer(){document.getElementById("ov").classList.remove("on");document.getElementById("drawer").classList.remove("on")}
+
+//======================= DOCUMENTS =======================
+function fb(k,v){return '<div class="fb"><div class="k">'+esc(k)+'</div><div class="v">'+(v?esc(v):"&nbsp;")+'</div></div>'}
+function frow(cols){return '<div class="frow" style="grid-template-columns:repeat('+cols.length+',1fr)">'+cols.join("")+'</div>'}
+function genDoc(type){
+  var a=collect();a.photo=CUR.photo||"";var o=getSettings();
+  var miss=REQ.filter(function(r){return !String(a[r[0]]||"").trim()});
+  if(miss.length){toast("Informations manquantes",1);return}
+  var html=type==="cerfa"?cerfaHTML(a,o):conventionHTML(a,o);
+  var dv=document.getElementById("docview");
+  dv.innerHTML='<div class="docbar"><div style="font-weight:600">'+(type==="cerfa"?"CERFA — Contrat d’apprentissage":"Convention de formation")+'</div>'
+  +'<div style="display:flex;gap:8px"><button class="btn ghost sm" onclick="closeDoc()">‹ Retour</button>'
+  +'<button class="btn sm" onclick="window.print()">Imprimer / Enregistrer en PDF</button></div></div>'+html;
+  dv.classList.add("on");dv.scrollTop=0;
+}
+function closeDoc(){document.getElementById("docview").classList.remove("on")}
+function cerfaHTML(a,o){
+  return '<div class="sheet"><h1>CONTRAT D’APPRENTISSAGE</h1>'
+  +'<p class="ref">Formulaire type CERFA n° 10103*13 (FA13) — art. L.6222-1 et s. du Code du travail</p>'
+  +'<div class="sh">L’employeur</div>'
+  +frow([fb("Dénomination",a.societe),fb("N° SIRET",a.societe_siret)])
+  +frow([fb("Adresse",a.societe_adresse),fb("Code postal",a.societe_cp),fb("Commune",a.societe_ville)])
+  +frow([fb("Représenté par",a.societe_rep),fb("Effectif",a.societe_effectif),fb("Code NAF",a.societe_naf)])
+  +'<div class="sh">L’apprenti(e)</div>'
+  +frow([fb("Nom",a.nom),fb("Prénom",a.prenom),fb("Sexe",a.sexe)])
+  +frow([fb("Né(e) le",dfr(a.date_naissance)),fb("Nationalité",a.nationalite),fb("Téléphone",a.tel)])
+  +frow([fb("Adresse",a.adresse),fb("Code postal",a.cp),fb("Commune",a.ville)])
+  +frow([fb("Courriel",a.email)])
+  +'<div class="sh">Le contrat</div>'
+  +frow([fb("Date de début",dfr(a.date_debut)),fb("Date de fin",dfr(a.date_fin)),fb("Rémunération",a.remuneration)])
+  +'<div class="sh">La formation — CFA / organisme</div>'
+  +frow([fb("Organisme",o.org_nom),fb("N° déclaration d’activité",o.org_nda)])
+  +frow([fb("Adresse",o.org_adresse),fb("CP",o.org_cp),fb("Commune",o.org_ville)])
+  +frow([fb("Diplôme / titre",a.formation_diplome||a.formation),fb("Niveau",a.formation_niveau),fb("Code RNCP",a.formation_rncp)])
+  +frow([fb("Intitulé de la formation",a.formation)])
+  +frow([fb("Début formation",dfr(a.date_debut_f)),fb("Fin formation",dfr(a.date_fin_f)),fb("Durée (h)",a.duree)])
+  +'<div class="signs" style="grid-template-columns:1fr 1fr 1fr">'
+  +'<div class="sign"><div class="k">L’employeur</div><div class="s">Signature et cachet</div></div>'
+  +'<div class="sign"><div class="k">L’apprenti(e)</div><div class="s">(et repr. légal si mineur)</div></div>'
+  +'<div class="sign"><div class="k">L’organisme</div><div class="s">Signature et cachet</div></div></div>'
+  +'<div class="foot">'+esc(o.org_nom||"")+' — Document généré par le CRM Formation</div></div>';
+}
+function conventionHTML(a,o){
+  var org=(o.org_nom||"—")+", "+[o.org_adresse,o.org_cp,o.org_ville].filter(Boolean).join(" ")
+    +(o.org_siret?", SIRET "+o.org_siret:"")+(o.org_nda?", déclaration d’activité n° "+o.org_nda:"")+(o.org_representant?", représenté par "+o.org_representant:"");
+  var ent=(a.societe||"—")+", "+[a.societe_adresse,a.societe_cp,a.societe_ville].filter(Boolean).join(" ")
+    +(a.societe_siret?", SIRET "+a.societe_siret:"")+(a.societe_rep?", représentée par "+a.societe_rep:"");
+  function art(t,b){return '<div class="art">'+t+'</div><p class="body">'+b+'</p>'}
+  return '<div class="sheet"><h1>CONVENTION DE FORMATION PROFESSIONNELLE</h1>'
+  +'<p class="ref">Articles L.6353-1 et L.6353-2 du Code du travail</p>'
+  +'<p class="body"><b>Entre les soussignés :</b></p>'
+  +'<p class="body">L’organisme de formation : '+esc(org)+'. Ci-après « l’organisme ».</p>'
+  +'<p class="body">Et l’entreprise bénéficiaire : '+esc(ent)+'. Ci-après « le bénéficiaire ».</p>'
+  +art("Article 1 — Objet","L’organisme organise l’action de formation : « "+esc(a.formation)+" »"+(a.formation_diplome?" (préparation à "+esc(a.formation_diplome)+")":"")+(a.formation_niveau?", niveau "+esc(a.formation_niveau):"")+(a.formation_rncp?", fiche RNCP "+esc(a.formation_rncp):"")+", relevant de l’article L.6313-1 du Code du travail.")
+  +art("Article 2 — Bénéficiaire","La présente action bénéficie à "+esc(a.prenom+" "+a.nom)+(a.date_naissance?", né(e) le "+dfr(a.date_naissance):"")+(a.email?", "+esc(a.email):"")+".")
+  +art("Article 3 — Dates, durée et lieu","Du "+(dfr(a.date_debut_f)||dfr(a.date_debut)||"…")+" au "+(dfr(a.date_fin_f)||dfr(a.date_fin)||"…")+", pour une durée totale de "+esc(a.duree||"…")+" heures"+(a.rythme?" (rythme : "+esc(a.rythme)+")":"")+", dans les locaux de l’organisme sauf modalités à distance convenues.")
+  +art("Article 4 — Dispositions financières","Le bénéficiaire s’acquitte des frais de formation d’un montant de "+esc(a.cout||"…")+" € couvrant l’ensemble des frais pédagogiques de l’action.")
+  +art("Article 5 — Suivi et sanction","Le suivi est assuré par feuilles de présence émargées ; une attestation de fin de formation est remise au bénéficiaire.")
+  +art("Article 6 — Interruption","En cas de cessation anticipée, l’article L.6354-1 du Code du travail s’applique ; les sommes dues au titre de la formation dispensée restent acquises à l’organisme.")
+  +'<p class="body">Fait à '+esc(o.org_ville||"………")+', le '+new Date().toLocaleDateString("fr-FR")+', en deux exemplaires.</p>'
+  +'<div class="signs" style="grid-template-columns:1fr 1fr">'
+  +'<div class="sign"><div class="k">Pour l’organisme</div><div class="s">Signature et cachet</div></div>'
+  +'<div class="sign"><div class="k">Pour le bénéficiaire</div><div class="s">Signature et cachet</div></div></div>'
+  +'<div class="foot">'+esc(o.org_nom||"")+' — Document généré par le CRM Formation</div></div>';
+}
+
+//======================= VIEW: COLLABORATEURS =======================
+function viewUsers(){
+  var u=me();var users=getUsers();
+  var rows=users.map(function(x){
+    var isA=x.role==="admin";
+    var acc=x.active?'<span class="badge b-accepte">Actif</span>':'<span class="badge b-refuse">Désactivé</span>';
+    var act=isA?'<span style="color:var(--faint);font-size:12px">—</span>':
+      '<button class="btn '+(x.active?"ghost":"ok")+' sm" onclick="toggleU(\''+x.id+'\')">'+(x.active?"Retirer l’accès":"Réactiver")+'</button> '
+      +'<button class="btn danger sm" onclick="delU(\''+x.id+'\')">Suppr.</button>';
+    return '<tr style="cursor:default"><td><div class="who"><div class="av">'+esc((x.nom||"?")[0])+'</div><div><b>'+esc(x.nom||"—")+'</b><small>'+esc(x.email)+'</small></div></div></td>'
+    +'<td>'+(isA?"Administrateur":"Collaborateur")+'</td><td>'+acc+'</td><td style="text-align:right">'+act+'</td></tr>'}).join("");
+  document.getElementById("main").innerHTML=''
+  +'<div class="head"><div><h2>Collaborateurs</h2><div class="sub">Donnez ou retirez l’accès. Un accès retiré empêche aussitôt la connexion.</div></div>'
+  +'<button class="btn" onclick="addU()">＋ Inviter un collaborateur</button></div>'
+  +'<div class="hint"><span>🔑</span><div><b>Comment ça marche —</b> chaque collaborateur se connecte avec son e-mail et son mot de passe. Quand quelqu’un quitte le centre, cliquez sur <b>« Retirer l’accès »</b> : il ne pourra plus se connecter. Réactivez à tout moment.</div></div>'
+  +'<div class="card"><div class="twrap"><table><thead><tr><th>Collaborateur</th><th>Rôle</th><th>Accès</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div></div>';
+}
+function addU(){
+  var nom=prompt("Nom du collaborateur :");if(nom==null)return;
+  var email=prompt("Adresse e-mail :");if(!email)return;
+  email=email.toLowerCase().trim();
+  if(getUsers().some(function(u){return u.email.toLowerCase()===email})){toast("Cet e-mail existe déjà",1);return}
+  var pass=prompt("Mot de passe provisoire (min. 6 caractères) :");if(!pass||pass.length<6){toast("Mot de passe trop court",1);return}
+  var users=getUsers();users.push({id:uid(),nom:nom,email:email,pass:pass,role:"collaborateur",active:true});save(K.users,users);
+  toast("Accès créé pour "+email);viewUsers();
+}
+function toggleU(id){var users=getUsers();users.forEach(function(u){if(u.id===id)u.active=!u.active});save(K.users,users);
+  var u=users.filter(function(x){return x.id===id})[0];toast(u.active?"Accès réactivé":"Accès retiré — connexion bloquée");viewUsers()}
+function delU(id){if(!confirm("Supprimer ce collaborateur ?"))return;save(K.users,getUsers().filter(function(u){return u.id!==id}));toast("Collaborateur supprimé");viewUsers()}
+
+//======================= VIEW: PARAMÈTRES =======================
+var SF=[["org_nom","Nom du centre de formation",1],["org_representant","Représentant / responsable"],["org_siret","SIRET"],
+  ["org_nda","N° de déclaration d’activité"],["org_tel","Téléphone"],["org_email","E-mail"],
+  ["org_adresse","Adresse",1],["org_cp","Code postal"],["org_ville","Ville"]];
+function viewSettings(){
+  var s=getSettings();
+  document.getElementById("main").innerHTML=''
+  +'<div class="head"><div><h2>Paramètres du centre</h2><div class="sub">Ces informations alimentent automatiquement le CERFA et la convention.</div></div></div>'
+  +'<div class="card card-pad"><div class="grid" id="setf">'
+  +SF.map(function(f){return '<div class="f'+(f[2]?" full":"")+'"><label>'+esc(f[1])+'</label><input data-s="'+f[0]+'" value="'+esc(s[f[0]]||"")+'"></div>'}).join("")
+  +'</div><div style="margin-top:16px"><button class="btn" onclick="saveSettings()">Enregistrer</button></div></div>';
+}
+function saveSettings(){var s={};Array.prototype.forEach.call(document.querySelectorAll("#setf [data-s]"),function(el){s[el.getAttribute("data-s")]=el.value});save(K.settings,s);toast("Paramètres enregistrés")}
+
+//======================= BOOT =======================
+if(me())renderApp();else renderLogin();
+</script>
+
+</body>
+</html>
