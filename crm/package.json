@@ -1,0 +1,23 @@
+{
+  "name": "crm-formation-apprentis",
+  "version": "1.0.0",
+  "description": "CRM commercial pour centre de formation : suivi des apprentis, gestion des accès collaborateurs, génération CERFA apprentissage et convention de formation.",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^11.3.0",
+    "connect-sqlite3": "^0.9.15",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "multer": "^1.4.5-lts.1",
+    "pdfkit": "^0.15.0"
+  }
+}

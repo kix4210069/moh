@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRM Formation — Suivi des apprentis</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231256d1'/><text x='50' y='68' font-size='58' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>F</text></svg>" />
+</head>
+<body>
+
+  <!-- ÉCRAN DE CONNEXION -->
+  <div id="authView" class="auth-wrap hidden">
+    <form id="loginForm" class="auth-card">
+      <h1>CRM Formation</h1>
+      <p class="sub">Suivi commercial des apprentis · Espace collaborateurs</p>
+      <div class="field" style="margin-bottom:14px">
+        <label>Adresse e-mail</label>
+        <input type="email" id="loginEmail" required autocomplete="username" />
+      </div>
+      <div class="field" style="margin-bottom:18px">
+        <label>Mot de passe</label>
+        <input type="password" id="loginPassword" required autocomplete="current-password" />
+      </div>
+      <button class="btn" style="width:100%;justify-content:center" type="submit">Se connecter</button>
+      <p id="loginError" class="err-msg" style="margin-top:12px"></p>
+    </form>
+  </div>
+
+  <!-- APPLICATION -->
+  <div id="appView" class="app hidden">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">F</div>
+        <div><b>CRM Formation</b><span>Centre de formation</span></div>
+      </div>
+      <nav class="nav" id="nav">
+        <button data-view="apprentis" class="active"><span class="icon">👥</span> Apprentis</button>
+        <button data-view="collaborateurs" class="adminOnly"><span class="icon">🔑</span> Collaborateurs</button>
+        <button data-view="parametres" class="adminOnly"><span class="icon">⚙️</span> Paramètres</button>
+      </nav>
+      <div class="spacer"></div>
+      <div class="userbox">
+        <div class="name" id="meNom">—</div>
+        <div class="role" id="meRole">—</div>
+        <button id="logoutBtn">Se déconnecter</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <!-- VUE APPRENTIS -->
+      <section id="view-apprentis">
+        <div class="page-head">
+          <div>
+            <h2>Apprentis</h2>
+            <div class="sub">Fiches, états des dossiers et génération des documents</div>
+          </div>
+          <button class="btn" id="newApprentiBtn">＋ Nouvel apprenti</button>
+        </div>
+        <div class="stats" id="stats"></div>
+        <div class="panel">
+          <div class="toolbar">
+            <input type="search" id="searchInput" placeholder="Rechercher nom, société, formation…" />
+            <select id="statutFilter">
+              <option value="">Tous les statuts</option>
+              <option value="en_attente">En attente</option>
+              <option value="accepte">Accepté</option>
+              <option value="documents_manquants">Documents manquants</option>
+              <option value="refuse">Refusé</option>
+            </select>
+          </div>
+          <div id="apprentisTable"></div>
+        </div>
+      </section>
+
+      <!-- VUE COLLABORATEURS -->
+      <section id="view-collaborateurs" class="hidden">
+        <div class="page-head">
+          <div>
+            <h2>Collaborateurs</h2>
+            <div class="sub">Donnez ou retirez l’accès à l’outil. Un accès désactivé est coupé immédiatement.</div>
+          </div>
+          <button class="btn" id="newUserBtn">＋ Inviter un collaborateur</button>
+        </div>
+        <div class="panel"><div id="usersTable"></div></div>
+      </section>
+
+      <!-- VUE PARAMÈTRES -->
+      <section id="view-parametres" class="hidden">
+        <div class="page-head">
+          <div>
+            <h2>Paramètres du centre</h2>
+            <div class="sub">Ces informations alimentent le CERFA et la convention de formation.</div>
+          </div>
+        </div>
+        <div class="panel">
+          <form id="settingsForm" class="form-grid"></form>
+          <div style="margin-top:16px"><button class="btn" id="saveSettingsBtn">Enregistrer</button></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- DRAWER FICHE APPRENTI -->
+  <div class="overlay" id="overlay"></div>
+  <div class="drawer" id="drawer">
+    <div class="drawer-head">
+      <h3 id="drawerTitle">Fiche apprenti</h3>
+      <button class="x" id="drawerClose">×</button>
+    </div>
+    <div class="drawer-body" id="drawerBody"></div>
+    <div class="drawer-foot" id="drawerFoot"></div>
+  </div>
+
+  <!-- DRAWER COLLABORATEUR -->
+  <div class="overlay" id="overlay2"></div>
+  <div class="drawer" id="drawer2">
+    <div class="drawer-head">
+      <h3>Inviter un collaborateur</h3>
+      <button class="x" id="drawer2Close">×</button>
+    </div>
+    <div class="drawer-body" id="drawer2Body"></div>
+    <div class="drawer-foot" id="drawer2Foot"></div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
